@@ -1,23 +1,23 @@
 <template>
-  <main class="main-dashboard">
-      <Dashboard />
-      <Navigation />
-  </main>
+    <main class="main-dashedit">
+        <editUser />
+        <Navigation />
+    </main>
 </template>
 
 <script>
-import Navigation from './../components/nav/Navigation';
-import Dashboard from './../components/dashboard/Dashboard'
+import Navigation from "./../components/nav/Navigation";
+import editUser from "./../components/dashboard/editUser"
 export default {
     components: {
-        Dashboard,
+        editUser,
         Navigation
     }
-}
+};
 </script>
 
 <style>
-.main-dashboard {
+.main-dashedit {
     height: 84vh;
     background: #426859;
     display: flex;

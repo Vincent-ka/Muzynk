@@ -7,6 +7,8 @@
             <th class="table-user-head">Nom</th>
             <th class="table-user-head">Nom de famille</th>
             <th class="table-user-head">Email</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -17,7 +19,15 @@
             <td>{{user.lastname}}</td>
             <th class="head-user-responsive">Email</th>
             <td class="last-user-td">{{user.email}}</td>
+            <td>
+              <router-link :to="'/dashboard/edit/' + user._id">
+              <p>Edit</p>
+              </router-link>
+            </td>
             <td class="last-user-td is-clickable" @click="deleteUser(user._id)">X</td>
+            <div v-for="(ami, i) in users.friendlist" :key="i">
+              <td>{{ami[1]}}</td>
+            </div>
           </tr>
         </tbody>
       </table>
@@ -62,7 +72,7 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 979px) {
   .sectionDashboard {
     height: 100%;
-    width: 900%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

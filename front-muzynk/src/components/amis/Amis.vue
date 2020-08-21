@@ -58,7 +58,7 @@ export default {
 @media screen and (min-width: 320px) and (max-width: 979px) {
   .sectionAmis {
     height: 100%;
-    width: 900%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

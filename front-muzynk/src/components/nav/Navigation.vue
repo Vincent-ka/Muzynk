@@ -55,6 +55,12 @@ export default {
 }
 
 @media screen and (min-width: 320px) and (max-width: 979px) {
+
+.sectionNavigation {
+  width: 0%;
+  height: 100%;
+}
+
   #navigation {
     padding: 50px;
     border: 1px solid black;
@@ -111,12 +117,14 @@ export default {
     height: 0;
     width: 0;
   }
-}
 
-.sectionNavigation {
+  .sectionNavigation {
   width: 20%;
   height: 100%;
 }
+}
+
+
 
 .sectionNavigation a {
   text-decoration: none;

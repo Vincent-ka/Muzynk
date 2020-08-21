@@ -13,7 +13,9 @@
         <input id="input-emailname" type="email" class="input" name="email" />
         <button class="btn">ok</button>
       </form>
+    </article>
 
+    <article>
       <form action="#" class="form-profil">
         <h2>Mettre a jour votre mdp</h2>
         <label for="input-oldpassword" class="is-clickable">Ancien mot de passe</label>
@@ -34,34 +36,38 @@ export default {};
 <style>
 @media screen and (min-width: 320px) and (max-width: 979px) {
   .sectionProfil {
+    overflow-y: auto;
     height: 100%;
-    width: 900%;
+    width: 100%;
+  }
+
+  .sectionProfil > article {
+    display: flex;
+    justify-content: center;
   }
 }
 
 @media screen and (min-width: 980px) {
   .sectionProfil {
-    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
     height: 100%;
   }
-}
-.sectionProfil > article {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
+
+  .sectionProfil > article {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .form-profil {
   display: flex;
   flex-direction: column;
   max-width: 320px;
-}
-
-.form-profil:first-child {
-  margin-top: 20px;
 }
 
 .form-profil .label {

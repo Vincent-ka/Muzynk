@@ -41,6 +41,12 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/MainDashboard.vue")
   },
   {
+    path: "/dashboard/edit/:id",
+    name: "DashboardEdit",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/DashEdit.vue")
+  },
+  {
     path: "*",
     name: "Not Found",
     component: () =>

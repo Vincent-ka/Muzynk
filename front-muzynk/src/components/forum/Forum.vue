@@ -14,7 +14,7 @@ export default {};
 @media screen and (min-width: 320px) and (max-width: 979px) {
   .sectionForum {
     height: 100%;
-    width: 900%;
+    width: 100%;
   }
 }
 
