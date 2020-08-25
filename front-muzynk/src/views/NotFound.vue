@@ -1,7 +1,7 @@
 <template>
-  <p>Quelque chose s'est mal passé
+  <main class="main-notfound">Quelque chose s'est mal passé
       <router-link to="/">back to homepage</router-link>
-  </p>
+  </main>
 </template>
 
 <script>
@@ -11,5 +11,8 @@ export default {
 </script>
 
 <style>
-
+.main-notfound {
+  height: 84vh;
+  background: #426859;
+}
 </style>

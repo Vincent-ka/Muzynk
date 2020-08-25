@@ -39,6 +39,7 @@ export default {
       } catch (apiErr) {
         console.error(apiErr)
       }
+      alert("Les informations ont bien été changées")
     }
   },
   created() {

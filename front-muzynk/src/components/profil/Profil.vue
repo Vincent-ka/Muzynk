@@ -1,16 +1,16 @@
 <template>
   <section class="sectionProfil">
     <article>
-      <form action="#" class="form-profil">
+      <form action="#" class="form-profil" @submit.prevent="patchUser">
         <h2>Mettre à jour votre profil</h2>
         <label for="input-firstname" class="is-clickable">Prénom</label>
-        <input id="input-firtname" type="text" class="input" name="firstname" />
+        <input id="input-firtname" type="text" class="input" name="firstname" v-model="firstname" />
 
         <label for="input-lastname" class="is-clickable">Nom de famille</label>
-        <input id="input-lastname" type="text" class="input" name="lastname" />
+        <input id="input-lastname" type="text" class="input" name="lastname" v-model="lastname"/>
 
         <label for="input-email" class="is-clickable">Email</label>
-        <input id="input-emailname" type="email" class="input" name="email" />
+        <input id="input-emailname" type="email" class="input" name="email" v-model="email"/>
         <button class="btn">ok</button>
       </form>
     </article>
@@ -19,10 +19,10 @@
       <form action="#" class="form-profil">
         <h2>Mettre a jour votre mdp</h2>
         <label for="input-oldpassword" class="is-clickable">Ancien mot de passe</label>
-        <input id="input-oldpassword" type="password" class="input" name="newpassword" />
+        <input id="input-oldpassword" type="password" class="input" name="oldpassword" autocomplete="on"/>
 
         <label for="input-newpassword" class="is-clickable">Nouveau mot de passe</label>
-        <input id="input-newpassword" type="password" class="input" name="newpassword" />
+        <input id="input-newpassword" type="password" class="input" name="newpassword" autocomplete="on"/>
         <button class="btn">ok</button>
       </form>
     </article>
@@ -30,7 +30,50 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      firstname: '',
+      lastname: '',
+      email: ''
+    };
+  },
+  methods: {
+    async getUser() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8" 
+      );
+      this.firstname = apiRes.data.firstname,
+      this.lastname = apiRes.data.lastname,
+      this.email = apiRes.data.email
+    },
+    async patchUser() {
+      const { firstname, lastname, email } = this.$data;
+      try {
+        const apiRes = await axios.patch(
+          process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8",
+          {
+            firstname,
+            lastname,
+            email
+          }
+        );
+        console.log(apiRes)
+      } catch(apiErr) {
+        console.error(apiErr)
+      }
+      alert("Les informations ont bien été changées")
+    }
+  },
+  created() {
+    try {
+      this.getUser();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+};
 </script>
 
 <style>
