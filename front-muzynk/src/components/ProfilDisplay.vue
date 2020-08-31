@@ -2,13 +2,43 @@
   <section class="sectionNom">
     <article>
       <div></div>
-      <p>Vincent Katalinski</p>
+      <p>{{firstname}} {{lastname}}</p>
     </article>
   </section>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      firstname: '',
+      lastname: ''
+    }
+  },
+  methods: {
+    sendPost(e) {
+      e.preventDefault();
+      this.posts.push(this.post);
+      this.post = ""
+
+    },
+    async getUser() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8"
+      );
+      this.firstname = apiRes.data.firstname,
+      this.lastname = apiRes.data.lastname
+    }
+  },
+  created() {
+    try {
+      this.getUser();
+    } catch(err) {
+      console.error(err)
+    }
+  }
+};
 </script>
 
 <style>

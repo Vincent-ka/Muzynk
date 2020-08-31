@@ -16,7 +16,8 @@ router.post("/", async (req, res, next) => {
 // GET
 router.get("/", async (req, res, next) => {
   try {
-    const subjects = await SubjectModel.find().sort({date: -1})
+    const subjects = await SubjectModel.find()
+    .populate("id_creator")
     .populate("id_postsForum")
     .populate("id_tags");
     res.json(subjects);
@@ -29,6 +30,7 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const subject = await SubjectModel.findById(req.params.id)
+    .populate("id_creator")
     .populate("id_postsForum")
     .populate("id_tags");
     res.json(subject);

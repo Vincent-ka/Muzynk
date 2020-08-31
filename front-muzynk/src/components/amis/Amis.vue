@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import io from "socket.io-client";
 
 export default {
@@ -43,6 +44,20 @@ export default {
         message: this.message
       });
       this.message = "";
+    },
+    async getChat() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/chats/5f4cb5308e9be0103428fb2b"
+      );
+      this.id_postsFeed = apiRes.data.message
+      console.log(apiRes.data.message)
+    },
+  },
+  created() {
+    try {
+      this.getChat();
+    } catch (err) {
+      console.error(err);
     }
   },
   mounted() {

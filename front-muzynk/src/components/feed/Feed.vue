@@ -2,11 +2,11 @@
   <section class="sectionFeed">
     <article>
       <div class="feedbox" >
-        <p v-for="(post, index) in posts" :key="index">
-          {{post}}
+        <p class="post" v-for="(post, index) in id_postsFeed" :key="index">
+          {{post.content}}
         </p>
       </div>
-      <form class="feedform" @submit.prevent="sendPost">
+      <form class="feedform" @submit.prevent="postContent">
         <div>
           <input class="feed-input" type="text" v-model="post"/>
         </div>
@@ -17,19 +17,57 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
       post: "",
-      posts: []
+      id_postsFeed: []
     }
   },
   methods: {
-    sendPost(e) {
-      e.preventDefault();
-      this.posts.push(this.post);
+    // Fonction pour faire apparaitre le feed de l'utilisateur
+    async getFeed() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/feeds/5f46ada43ae36925306f3934"
+      );
+      this.id_postsFeed = apiRes.data.id_postsFeed
+    },
+    // Fonction pour poster un nouveau post 
+    async postContent() {
+      const apiRes = await axios.post(
+        process.env.VUE_APP_BACKEND_URL + "/postsFeed/", {
+          content: this.post,
+          date_published: Date.now()
+        }
+      );
       this.post = ""
-
+      this.patchFeed(apiRes.data._id)
+    },
+    // Fonction pour modifier le feed et y ajouter le post posté
+    async patchFeed(id) {
+      this.id_postsFeed.push(id);
+      const { id_postsFeed } = this.$data;
+      try {
+        const apiRes = await axios.patch(
+          process.env.VUE_APP_BACKEND_URL + "/feeds/5f46ada43ae36925306f3934",
+          {
+            id_postsFeed
+          }
+        );
+        console.log("resultat du patch", apiRes)
+      } catch(apiErr) {
+        console.error(apiErr)
+      };
+      this.getFeed()
+    }
+  },
+  // Faire aparaitre le feed à la création de la page
+  created() {
+    try {
+      this.getFeed();
+    } catch (err) {
+      console.error(err);
     }
   }
 };
@@ -97,5 +135,9 @@ export default {
 
 .feed-input {
   margin-left: 10px
+}
+
+.post {
+  border-bottom: 1px solid;
 }
 </style>

@@ -15,7 +15,8 @@ router.post("/", async (req, res, next) => {
 // GET
 router.get("/", async (req, res, next) => {
     try {
-        const postsForum = await PostForumModel.find();
+        const postsForum = await PostForumModel.find()
+        .populate("id_author");
         res.json(postsForum);
     } catch (err) {
         next(err);
@@ -25,7 +26,8 @@ router.get("/", async (req, res, next) => {
 // GET BY ID
 router.get("/:id", async (req, res, next) => {
     try {
-        const postForum = await PostForumModel.findById(req.params.id);
+        const postForum = await PostForumModel.findById(req.params.id)
+        .populate("id_author");
         res.json(postForum);
     } catch (err) {
         next(err);

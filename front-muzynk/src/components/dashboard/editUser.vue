@@ -20,12 +20,14 @@ export default {
     };
   },
   methods: {
+    //Fonction pour afficher les détails de l'user selectioné
     async getUser() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id
       );
-      this.role = apiRes.data.role
+      this.role = apiRes.data.role;
     },
+    // Fonction pour modifier les informations de l'utilisateur
     async patchUser() {
       const { role } = this.$data;
       try {
@@ -35,11 +37,11 @@ export default {
             role
           }
         );
-        console.log(apiRes)
+        console.log(apiRes);
       } catch (apiErr) {
-        console.error(apiErr)
+        console.error(apiErr);
       }
-      alert("Les informations ont bien été changées")
+      location.href = "/dashboard";
     }
   },
   created() {
@@ -53,4 +55,49 @@ export default {
 </script>
 
 <style>
+.sectionDashEdit {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-dashEdit {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+}
+
+.form-dashEdit .label {
+  cursor: pointer;
+  margin-bottom: 6px;
+}
+
+.form-dashEdit .input {
+  padding: 7px 0 7px 20px;
+  margin-bottom: 10px;
+  height: 32px;
+  width: 100%;
+}
+
+.form-dashEdit .input:last-of-type {
+  margin-bottom: 20px;
+}
+
+.form-dashEdit .input,
+.form-dashEdit .btn {
+  border: 1px solid;
+  border-radius: 0.3rem;
+}
+
+.form-dashEdit .btn {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 32px;
+  max-width: 120px;
+  margin-bottom: 20px;
+}
 </style>

@@ -7,8 +7,9 @@
             <th class="table-user-head">Nom</th>
             <th class="table-user-head">Nom de famille</th>
             <th class="table-user-head">Email</th>
-            <th></th>
-            <th></th>
+            <th class="table-user-head">Role</th>
+            <th class="vide"></th>
+            <th class="vide"></th>
           </tr>
         </thead>
         <tbody>
@@ -18,9 +19,11 @@
             <th class="head-user-responsive">Nom de famille</th>
             <td>{{user.lastname}}</td>
             <th class="head-user-responsive">Email</th>
-            <td class="last-user-td">{{user.email}}</td>
+            <td>{{user.email}}</td>
+            <th class="head-user-responsive">Role</th>
+            <td>{{user.role}}</td>
             <td>
-              <router-link :to="'/dashboard/edit/' + user._id">
+              <router-link :to="'/dashboard/edit/' + user._id" class="link-edit">
               <p>Edit</p>
               </router-link>
             </td>
@@ -44,12 +47,14 @@ export default {
     };
   },
   methods: {
+    // Fonction pour afficher tous les utilisateurs
     async getUsers() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users"
       );
       this.users = apiRes.data;
     },
+    // Fonction pour supprimer un utilisateur
     async deleteUser(id) {
       const apiRes = await axios.delete(
         process.env.VUE_APP_BACKEND_URL + "/users/" + id
@@ -78,6 +83,9 @@ export default {
     justify-content: center;
     overflow-y: auto;
   }
+  td, th {
+    background: #4F7F88;
+  }
   .table-user-row {
     display: flex;
     flex-direction: column;
@@ -86,10 +94,13 @@ export default {
     display: none;
   }
   .last-user-td {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
   }
   .table-user {
     width: 100%;
+  }
+  .vide {
+    display: none;
   }
   .head--user-responsive {
     display: block;
@@ -110,10 +121,21 @@ export default {
     border: 3px solid black;
     border-collapse: collapse;
     width: 100%;
+    background: #4F7F88;
   }
   .head-user-responsive {
     display: none;
   }
+}
+
+.link-edit {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.link-edit:hover {
+  text-decoration: underline;
 }
 
 .sectionDashboard > article {

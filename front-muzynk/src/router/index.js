@@ -11,6 +11,12 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/MainForum.vue")
   },
   {
+    path: "/forum/sujet/:id",
+    name: "Sujet",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/SujetForum.vue")
+  },
+  {
     path: "/feed",
     name: "Feed",
     component: () =>
