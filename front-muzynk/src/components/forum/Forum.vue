@@ -4,14 +4,13 @@
       <div class="forumbox">
         <div class="postSujet" v-for="(sujet, index) in id_subjects" :key="index">
           <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">
-          <p>{{sujet.title}} -- {{sujet.id_creator.firstname}}</p>
+            <p class="titre-sujet">{{sujet.title}}</p>
           </router-link>
+          <p class="creator">{{sujet.id_creator}}</p>
         </div>
       </div>
       <form class="forumform" @submit.prevent="postSubject">
-        <div>
-          <input class="forum-input" type="text" v-model="title"/>
-        </div>
+          <input class="forum-input" type="text" placeholder="Créer un nouveau sujet" v-model="title" />
         <button class="forum-submit">Send</button>
       </form>
     </article>
@@ -25,7 +24,7 @@ export default {
     return {
       title: "",
       id_subjects: [],
-    }
+    };
   },
   methods: {
     // Fonction pour faire apparaitre le forum
@@ -33,19 +32,22 @@ export default {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/forums/5f3a7be4a9a37d200c17dddd"
       );
-      this.id_subjects = apiRes.data.id_subjects
+      this.id_subjects = apiRes.data.id_subjects;
     },
-    // Fonction pour poster un nouveau sujet 
+    // Fonction pour poster un nouveau sujet
     async postSubject() {
+      if (this.title.length != 0) {
       const apiRes = await axios.post(
-        process.env.VUE_APP_BACKEND_URL + "/subjects/", {
+        process.env.VUE_APP_BACKEND_URL + "/subjects/",
+        {
           title: this.title,
           id_creator: "5f3e335e2a1d9f2bc0f8a6a8",
-          id_postsForum: [],
+          id_postsForum: []
         }
       );
       this.title = "";
-      this.patchForum(apiRes.data._id) 
+      this.patchForum(apiRes.data._id);
+      }
     },
     // Fonction pour modifier le forum et y ajouter le sujet posté
     async patchForum(id) {
@@ -58,11 +60,11 @@ export default {
             id_subjects
           }
         );
-        console.log("resultat du patch", apiRes)
-      } catch(apiErr) {
-        console.error(apiErr)
-      };
-      this.getForum()
+        console.log("resultat du patch", apiRes);
+      } catch (apiErr) {
+        console.error(apiErr);
+      }
+      this.getForum();
     }
   },
   created() {
@@ -80,6 +82,27 @@ export default {
   .sectionForum {
     height: 100%;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .titre-sujet {
+    width: 100%;
+    background: #698880;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .link-sujet {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  width: 100%;
+}
+
+  .creator {
+    display: none;
   }
 }
 
@@ -91,6 +114,19 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
+  .titre-sujet {
+    width: 100%;
+    background: #698880;
+    padding: 20px;
+  }
+
+  .link-sujet {
+  color: black;
+  text-decoration: none;
+  font-weight: bold;
+  width: 60%;
+}
 }
 
 .sectionForum > article {
@@ -100,10 +136,9 @@ export default {
 }
 
 .forumbox {
-  background: red;
   width: 100%;
-  height: 90%;
-  background: white;
+  height: 95%;
+  background: #b1c1c0;
   overflow-y: auto;
   border: 2px solid black;
 }
@@ -113,11 +148,10 @@ export default {
   position: absolute;
   bottom: 0;
   border-top: 1px solid;
-  height: 10%;
+  height: 5%;
   width: 100%;
   background: gray;
   justify-content: center;
-  border: 2px solid black;
   border-top: none;
 }
 
@@ -128,25 +162,23 @@ export default {
   margin-left: auto;
 }
 
-.forumform div {
-  align-self: center;
-}
-
 .forum-input {
-  margin-left: 10px
+  width: 100%;
 }
 
 .postSujet {
-  border-bottom: 1px solid;
-}
-
-.link-sujet {
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
+  border-bottom: 3px solid black;
+  display: flex;
+  justify-content: space-between;
 }
 
 .link-sujet:hover {
   text-decoration: underline;
+}
+
+.creator {
+  padding: 5px;
+  font-size: 10px;
+  align-self: flex-end;
 }
 </style>

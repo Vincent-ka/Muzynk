@@ -26,6 +26,11 @@
         <button class="btn">ok</button>
       </form>
     </article>
+
+    <article class="gerer">
+    <router-link :to="'/signin-login'" class="link-deco">Déconnexion</router-link>
+    <p >Effacer son profil</p>
+    </article>
   </section>
 </template>
 
@@ -88,6 +93,11 @@ export default {
     display: flex;
     justify-content: center;
   }
+
+  article.gerer {
+    display: flex;
+    justify-content: space-around;
+  }
 }
 
 @media screen and (min-width: 980px) {
@@ -99,12 +109,20 @@ export default {
   }
 
   .sectionProfil > article {
-    width: 50%;
+    width: 40%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+
+  article.gerer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+}
 }
 
 .form-profil {
@@ -143,5 +161,14 @@ export default {
   height: 32px;
   max-width: 120px;
   margin-bottom: 20px;
+}
+
+.link-deco {
+  color: black;
+  text-decoration: none;
+}
+
+.link-deco:hover {
+  text-decoration: underline;
 }
 </style>

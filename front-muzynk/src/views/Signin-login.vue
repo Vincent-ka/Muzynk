@@ -15,20 +15,20 @@
       </article>
 
       <article>
-        <form action="#" class="form-log">
+        <form class="form-log" @submit.prevent="postUser">
           <h2>Inscrivez vous</h2>
 
           <label for="input-firstname" class="is-clickable">Prénom</label>
-          <input id="input-firtname" type="text" class="input" name="firstname" />
+          <input id="input-firtname" type="text" class="input" name="firstname" v-model="firstname" />
 
           <label for="input-lastname" class="is-clickable">Nom de famille</label>
-          <input id="input-lastname" type="text" class="input" name="lastname" />
+          <input id="input-lastname" type="text" class="input" name="lastname" v-model="lastname"/>
 
           <label for="input-email-sign" class="is-clickable">Email</label>
-          <input id="input-email-sign" type="email" class="input" name="email" />
+          <input id="input-email-sign" type="email" class="input" name="email" v-model="email"/>
 
           <label for="input-password-sign" class="is-clickable">Mot de passe</label>
-          <input id="input-password-sign" type="password" class="input" name="password" />
+          <input id="input-password-sign" type="password" class="input" name="password" v-model="password"/>
 
           <label for="input-checkpassword" class="is-clickable">Confirmation mot de passe</label>
           <input id="input-checkpassword" type="password" class="input" name="checkpassword" />
@@ -40,7 +40,32 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: ""
+    }
+  },
+  methods: {
+    async postUser() {
+      const apiRes = await axios.post(
+        process.env.VUE_APP_BACKEND_URL + "/users/",
+        {
+          firstname: this.firstname,
+          lastname: this.lastname,
+          email: this.email,
+          password: this.password
+        }
+      );
+      console.log(apiRes.data)
+      location.href = "/";
+    }
+  }
+};
 </script>
 
 <style>

@@ -8,7 +8,8 @@
       </div>
       <form class="feedform" @submit.prevent="postContent">
         <div>
-          <input class="feed-input" type="text" v-model="post"/>
+          <input class="feed-input" type="text" placeholder="poster du contenu" v-model="post"/>
+          <input class="feed-input-file" type="file">
         </div>
         <button type="submit" class="feed-submit">Send</button>
       </form>
@@ -35,6 +36,7 @@ export default {
     },
     // Fonction pour poster un nouveau post 
     async postContent() {
+      if (this.post.length != 0) {
       const apiRes = await axios.post(
         process.env.VUE_APP_BACKEND_URL + "/postsFeed/", {
           content: this.post,
@@ -43,6 +45,7 @@ export default {
       );
       this.post = ""
       this.patchFeed(apiRes.data._id)
+      }
     },
     // Fonction pour modifier le feed et y ajouter le post posté
     async patchFeed(id) {
@@ -137,7 +140,14 @@ export default {
   margin-left: 10px
 }
 
+.feed-input-file {
+  margin-left: 10px;
+}
+
 .post {
   border-bottom: 1px solid;
+  width: 100%;
+  background: #B1C1C0;
+  padding: 20px;
 }
 </style>

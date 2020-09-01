@@ -10,7 +10,7 @@
       </div>
       <form class="sujetform" @submit.prevent="postContent">
         <div>
-          <input class="sujet-input" type="text" v-model="content" />
+          <input class="sujet-input" type="text" placeholder="Créer un post" v-model="content" />
         </div>
         <button class="sujet-submit">Send</button>
       </form>
@@ -82,6 +82,9 @@ export default {
   .sectionSujet {
     height: 100%;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
