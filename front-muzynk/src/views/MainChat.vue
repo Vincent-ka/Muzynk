@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Amis from "./../components/amis/Amis";
+import Amis from "./../components/chat/Chat";
 import Navigation from "./../components/nav/Navigation"
 export default {
     components: {

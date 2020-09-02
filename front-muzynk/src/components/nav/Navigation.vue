@@ -14,7 +14,7 @@
           </li>
           <li class="chat lien-opa">
             <img src="./../../assets/chat.png" alt="picto du chat" />
-            <router-link to="/amis">Chat</router-link>
+            <router-link to="/chat">Chat</router-link>
           </li>
           <li class="profil lien-opa dashboard">
             <img src="./../../assets/profil.png" alt="picto du profil" />

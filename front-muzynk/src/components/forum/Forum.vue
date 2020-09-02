@@ -6,7 +6,9 @@
           <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">
             <p class="titre-sujet">{{sujet.title}}</p>
           </router-link>
-          <p class="creator">{{sujet.id_creator}}</p>
+          <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator">
+            <p class="creator">{{sujet.id_creator}}</p>
+          </router-link>
         </div>
       </div>
       <form class="forumform" @submit.prevent="postSubject">
@@ -101,7 +103,7 @@ export default {
   width: 100%;
 }
 
-  .creator {
+  .link-creator {
     display: none;
   }
 }
@@ -172,13 +174,15 @@ export default {
   justify-content: space-between;
 }
 
-.link-sujet:hover {
-  text-decoration: underline;
-}
-
-.creator {
+.link-creator {
+  color: black;
+  text-decoration: none;
   padding: 5px;
   font-size: 10px;
   align-self: flex-end;
+}
+
+.link-sujet:hover, .link-creator:hover {
+  text-decoration: underline;
 }
 </style>

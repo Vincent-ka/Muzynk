@@ -23,16 +23,22 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/MainFeed.vue")
   },
   {
+    path: "/ajout-amis/:id",
+    name: "AjoutAmis",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/MainAjoutAmis.vue")
+  },
+  {
     path: "/profil",
     name: "Profil",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/MainProfil.vue")
   },
   {
-    path: "/amis",
-    name: "Amis",
+    path: "/chat",
+    name: "Chat",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/MainAmis.vue")
+      import(/* webpackChunkName: "about" */ "../views/MainChat.vue")
   },
   {
     path: "/signin-login",
