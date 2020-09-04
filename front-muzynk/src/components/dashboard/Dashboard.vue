@@ -27,7 +27,7 @@
               <p>Edit</p>
               </router-link>
             </td>
-            <td class="last-user-td is-clickable" @click="deleteUser(user._id)">X</td>
+            <td class="last-user-td is-clickable supp" @click="deleteUser(user._id)">Supprimer</td>
             <div v-for="(ami, i) in users.friendlist" :key="i">
               <td>{{ami[1]}}</td>
             </div>
@@ -56,11 +56,13 @@ export default {
     },
     // Fonction pour supprimer un utilisateur
     async deleteUser(id) {
+      if (confirm("Voulez vous bien supprimer cet utilisateur ?")) {
       const apiRes = await axios.delete(
         process.env.VUE_APP_BACKEND_URL + "/users/" + id
       );
       this.users = apiRes.data;
       this.getUsers()
+      }
     }
   },
   created() {
@@ -84,7 +86,7 @@ export default {
     overflow-y: auto;
   }
   td, th {
-    background: #4F7F88;
+    background: #B1C1C0;
   }
   .table-user-row {
     display: flex;
@@ -121,7 +123,7 @@ export default {
     border: 3px solid black;
     border-collapse: collapse;
     width: 100%;
-    background: #4F7F88;
+    background: #B1C1C0;
   }
   .head-user-responsive {
     display: none;
@@ -155,7 +157,12 @@ export default {
   text-align: center;
 }
 
-.is-clickable {
+.supp {
   cursor: pointer;
+  font-weight: bold;
+}
+
+.supp:hover {
+  text-decoration: underline;
 }
 </style>

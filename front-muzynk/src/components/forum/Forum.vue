@@ -3,16 +3,20 @@
     <article>
       <div class="forumbox">
         <div class="postSujet" v-for="(sujet, index) in id_subjects" :key="index">
-          <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">
-            <p class="titre-sujet">{{sujet.title}}</p>
-          </router-link>
+          <h2 class="titre-sujet">
+            <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">{{sujet.title}}</router-link>
+          </h2>
+          <p class="creator-media"> Auteur : 
+            <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator-media">{{sujet.id_creator}}</router-link>
+          </p>
+
           <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator">
             <p class="creator">{{sujet.id_creator}}</p>
           </router-link>
         </div>
       </div>
       <form class="forumform" @submit.prevent="postSubject">
-          <input class="forum-input" type="text" placeholder="Créer un nouveau sujet" v-model="title" />
+        <input class="forum-input" type="text" placeholder="Créer un nouveau sujet" v-model="title" />
         <button class="forum-submit">Send</button>
       </form>
     </article>
@@ -25,7 +29,7 @@ export default {
   data() {
     return {
       title: "",
-      id_subjects: [],
+      id_subjects: []
     };
   },
   methods: {
@@ -35,20 +39,21 @@ export default {
         process.env.VUE_APP_BACKEND_URL + "/forums/5f3a7be4a9a37d200c17dddd"
       );
       this.id_subjects = apiRes.data.id_subjects;
+      console.log(apiRes.data.id_subjects[1])
     },
     // Fonction pour poster un nouveau sujet
     async postSubject() {
       if (this.title.length != 0) {
-      const apiRes = await axios.post(
-        process.env.VUE_APP_BACKEND_URL + "/subjects/",
-        {
-          title: this.title,
-          id_creator: "5f3e335e2a1d9f2bc0f8a6a8",
-          id_postsForum: []
-        }
-      );
-      this.title = "";
-      this.patchForum(apiRes.data._id);
+        const apiRes = await axios.post(
+          process.env.VUE_APP_BACKEND_URL + "/subjects/",
+          {
+            title: this.title,
+            id_creator: "5f3e335e2a1d9f2bc0f8a6a8",
+            id_postsForum: []
+          }
+        );
+        this.title = "";
+        this.patchForum(apiRes.data._id);
       }
     },
     // Fonction pour modifier le forum et y ajouter le sujet posté
@@ -97,14 +102,28 @@ export default {
   }
 
   .link-sujet {
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  width: 100%;
-}
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    width: 100%;
+  }
 
   .link-creator {
     display: none;
+  }
+
+  .creator-media {
+    display: block;
+    width: 100%;
+    background: #698880;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .postSujet {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid black;
   }
 }
 
@@ -118,17 +137,26 @@ export default {
   }
 
   .titre-sujet {
-    width: 100%;
+    width: 70%;
     background: #698880;
     padding: 20px;
   }
 
   .link-sujet {
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  width: 60%;
-}
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    width: 60%;
+  }
+  .creator-media {
+    display: none;
+  }
+
+  .postSujet {
+    border-bottom: 3px solid black;
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .sectionForum > article {
@@ -168,12 +196,6 @@ export default {
   width: 100%;
 }
 
-.postSujet {
-  border-bottom: 3px solid black;
-  display: flex;
-  justify-content: space-between;
-}
-
 .link-creator {
   color: black;
   text-decoration: none;
@@ -182,7 +204,17 @@ export default {
   align-self: flex-end;
 }
 
-.link-sujet:hover, .link-creator:hover {
+.link-creator-media {
+  color: black;
+  text-decoration: none;
+}
+
+.link-sujet:hover,
+.link-creator:hover {
   text-decoration: underline;
+}
+
+.titre-sujet {
+  font-size: 20px;
 }
 </style>

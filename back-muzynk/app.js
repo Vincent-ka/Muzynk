@@ -39,6 +39,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// // SESSION SETUP
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     cookie: { maxAge: 60000 }, // in millisec
+//     store: new MongoStore({
+//       mongooseConnection: mongoose.connection,
+//       ttl: 24 * 60 * 60, // 1 day
+//     }),
+//     saveUninitialized: true,
+//     resave: true,
+//   })
+// );
+
 app.use('/', indexRouter);
 app.use("/users", require("./routes/users"));
 app.use("/chats", require("./routes/chats"));

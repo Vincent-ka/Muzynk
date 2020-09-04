@@ -25,6 +25,10 @@ export default {
     margin-top: 6px;
     border-radius: 10px;
   }
+
+  #burger {
+    margin-right: 20px;
+  }
 }
 
 @media screen and (min-width: 980px) {

@@ -31,4 +31,8 @@ body {
   overflow-y: hidden;
   font-family: 'Open Sans', sans-serif;
 }
+
+.btn:hover {
+  background: #7D928D;
+}
 </style>

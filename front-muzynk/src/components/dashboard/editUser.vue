@@ -2,7 +2,7 @@
   <section class="sectionDashEdit">
     <article>
       <form action="#" class="form-dashEdit" @submit.prevent="patchUser">
-        <h2>Mettre à jour le profil</h2>
+        <h3>Mettre à jour le profil</h3>
         <label for="input-role" class="is-clickable">Role</label>
         <input id="input-role" type="text" class="input" name="role" v-model="role" />
         <button class="btn">ok</button>
@@ -56,7 +56,7 @@ export default {
 
 <style>
 .sectionDashEdit {
-  width: 90%;
+  width: 80%;
   height: 90%;
   display: flex;
   justify-content: center;

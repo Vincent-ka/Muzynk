@@ -1,9 +1,10 @@
 <template>
   <main class="main-log">
+    <h1 class="titreGeneral">Bienvenue sur muzink</h1>
     <section class="sectionLog">
-      <article>
+      <article class="formPres">
         <form action="#" class="form-log">
-          <h2>Connectez-vous</h2>
+          <h3>Connectez-vous</h3>
 
           <label for="input-email-log" class="is-clickable">Email</label>
           <input id="input-email-log" type="emil" class="input" name="email" />
@@ -14,9 +15,14 @@
         </form>
       </article>
 
-      <article>
+      <article class="presentation">
+        <p>Muzynk est un réseau social destiné aux passionnés de musique</p>
+        <p>Essayez son forum afin de pouvoir rencontrer des personnes partageant vos goût musicaux.</p>
+      </article>
+
+      <article class="formPres">
         <form class="form-log" @submit.prevent="postUser">
-          <h2>Inscrivez vous</h2>
+          <h3>Inscrivez vous</h3>
 
           <label for="input-firstname" class="is-clickable">Prénom</label>
           <input id="input-firtname" type="text" class="input" name="firstname" v-model="firstname" />
@@ -70,7 +76,7 @@ export default {
 
 <style>
 @media screen and (min-width: 320px) and (max-width: 979px) {
-  .sectionLog {
+  .main-log {
     overflow-y: auto;
   }
 
@@ -88,12 +94,20 @@ export default {
     justify-content: space-around;
   }
 
-  .sectionLog > article {
-    width: 50%;
-    height: 100%;
+  .sectionLog > article.presentation {
+    border: 1px solid black;
+    height: 50%;
+    align-self: center;
+    width: 20%;
+  }
+
+  .sectionLog > article.formPres {
+    width: 40%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid black;
   }
 }
 
@@ -143,5 +157,17 @@ export default {
   height: 32px;
   max-width: 120px;
   margin-bottom: 20px;
+}
+
+.presentation{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.titreGeneral {
+  text-align: center;
 }
 </style>

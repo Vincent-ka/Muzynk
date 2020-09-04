@@ -2,16 +2,13 @@
   <section class="sectionSujet">
     <article>
       <div class="sujetbox">
-        <p
-          class="postSujetContent"
-          v-for="(post, index) in id_postsForum"
-          :key="index"
-        >{{post.content}} - {{post.id_author}}</p>
+        <div class="postSujetContent" v-for="(post, index) in id_postsForum" :key="index">
+          <p class="sujetAuteur">C'est lui</p>
+          <p class="contenuMessage">{{post.content}}</p>
+        </div>
       </div>
       <form class="sujetform" @submit.prevent="postContent">
-        <div>
           <input class="sujet-input" type="text" placeholder="Créer un post" v-model="content" />
-        </div>
         <button class="sujet-submit">Send</button>
       </form>
     </article>
@@ -107,7 +104,7 @@ export default {
 .sujetbox {
   background: red;
   width: 100%;
-  height: 90%;
+  height: 95%;
   background: white;
   overflow-y: auto;
   border: 2px solid black;
@@ -118,11 +115,10 @@ export default {
   position: absolute;
   bottom: 0;
   border-top: 1px solid;
-  height: 10%;
+  height: 5%;
   width: 100%;
   background: gray;
   justify-content: center;
-  border: 2px solid black;
   border-top: none;
 }
 
@@ -133,15 +129,27 @@ export default {
   margin-left: auto;
 }
 
-.sujetform div {
-  align-self: center;
-}
-
 .sujet-input {
-  margin-left: 10px;
+  width: 100%;
 }
 
 .postSujetContent {
   border-bottom: 1px solid;
+  display: flex;
+}
+
+.sujetAuteur {
+  width: 20%;
+  background: #698880;
+  text-align: center;
+  padding: 3%;
+  border-right: 1px solid black;
+}
+
+.contenuMessage {
+  width: 80%;
+  background: #B1C1C0;
+  text-align: center;
+  padding: 3px;
 }
 </style>

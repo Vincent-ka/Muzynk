@@ -17,7 +17,7 @@ router.post("/", async (req, res, next) => {
 // GET
 router.get("/", async (req, res, next) => {
   try {
-    const users = await UserModel.find()
+    const users = await UserModel.find().sort({_id: -1})
     .populate("friendlist");
     res.json(users);
   } catch (err) {
