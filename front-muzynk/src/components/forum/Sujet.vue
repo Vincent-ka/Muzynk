@@ -3,7 +3,9 @@
     <article>
       <div class="sujetbox">
         <div class="postSujetContent" v-for="(post, index) in id_postsForum" :key="index">
-          <p class="sujetAuteur">C'est lui</p>
+          <div class="sujetAuteur">
+            <router-link :to="'/ajout-amis/' + post.id_author"><div class="author-photo"></div></router-link>
+            <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.id_author}}</router-link></div>
           <p class="contenuMessage">{{post.content}}</p>
         </div>
       </div>
@@ -21,8 +23,7 @@ export default {
   data() {
     return {
       content: "",
-      id_postsForum: [],
-      author: ""
+      id_postsForum: []
     };
   },
   methods: {
@@ -38,7 +39,8 @@ export default {
       const apiRes = await axios.post(
         process.env.VUE_APP_BACKEND_URL + "/postsForum/",
         {
-          content: this.content
+          content: this.content,
+          id_author: "5f3e335e2a1d9f2bc0f8a6a8"
         }
       );
       this.content = "";
@@ -83,6 +85,17 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
+  .link-author {
+    display: none;
+  }
+
+  .author-photo {
+    width: 45px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius: 50%;
+  }
 }
 
 @media screen and (min-width: 980px) {
@@ -92,6 +105,10 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .author-photo {
+    display: none;
   }
 }
 
@@ -144,6 +161,16 @@ export default {
   text-align: center;
   padding: 3%;
   border-right: 1px solid black;
+  font-size: 10px;
+}
+
+.link-author {
+  text-decoration: none;
+  color: black;
+}
+
+.link-author:hover {
+  text-decoration: underline;
 }
 
 .contenuMessage {

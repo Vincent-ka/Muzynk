@@ -1,13 +1,16 @@
 <template>
   <main class="main-log">
     <h1 class="titreGeneral">Bienvenue sur muzink</h1>
+    <p
+      class="presentation-media"
+    >Vous êtes passionné de musique et souhaitez échanger avec des personnes ayant le même intérêt ? Vous ête au bon endroit</p>
     <section class="sectionLog">
       <article class="formPres">
         <form action="#" class="form-log">
           <h3>Connectez-vous</h3>
 
           <label for="input-email-log" class="is-clickable">Email</label>
-          <input id="input-email-log" type="emil" class="input" name="email" />
+          <input id="input-email-log" type="email" class="input" name="email" />
 
           <label for="input-password-log" class="is-clickable">Mot de passe</label>
           <input id="input-password-log" type="password" class="input" name="password" />
@@ -25,16 +28,28 @@
           <h3>Inscrivez vous</h3>
 
           <label for="input-firstname" class="is-clickable">Prénom</label>
-          <input id="input-firtname" type="text" class="input" name="firstname" v-model="firstname" />
+          <input
+            id="input-firstname"
+            type="text"
+            class="input"
+            name="firstname"
+            v-model="firstname"
+          />
 
           <label for="input-lastname" class="is-clickable">Nom de famille</label>
-          <input id="input-lastname" type="text" class="input" name="lastname" v-model="lastname"/>
+          <input id="input-lastname" type="text" class="input" name="lastname" v-model="lastname" />
 
           <label for="input-email-sign" class="is-clickable">Email</label>
-          <input id="input-email-sign" type="email" class="input" name="email" v-model="email"/>
+          <input id="input-email-sign" type="email" class="input" name="email" v-model="email" />
 
           <label for="input-password-sign" class="is-clickable">Mot de passe</label>
-          <input id="input-password-sign" type="password" class="input" name="password" v-model="password"/>
+          <input
+            id="input-password-sign"
+            type="password"
+            class="input"
+            name="password"
+            v-model="password"
+          />
 
           <label for="input-checkpassword" class="is-clickable">Confirmation mot de passe</label>
           <input id="input-checkpassword" type="password" class="input" name="checkpassword" />
@@ -54,7 +69,7 @@ export default {
       lastname: "",
       email: "",
       password: ""
-    }
+    };
   },
   methods: {
     async postUser() {
@@ -67,7 +82,7 @@ export default {
           password: this.password
         }
       );
-      console.log(apiRes.data)
+      console.log(apiRes.data);
       location.href = "/";
     }
   }
@@ -86,6 +101,28 @@ export default {
     justify-content: center;
     /* align-items: center; */
   }
+
+  article.presentation {
+    display: none;
+  }
+
+  .form-log:first-of-type {
+    margin-bottom: 40px;
+  }
+
+  .presentation-media {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .titreGeneral {
+    text-align: center;
+  }
+
+  #burger {
+    display: none;
+  }
 }
 
 @media screen and (min-width: 980px) {
@@ -95,7 +132,6 @@ export default {
   }
 
   .sectionLog > article.presentation {
-    border: 1px solid black;
     height: 50%;
     align-self: center;
     width: 20%;
@@ -107,7 +143,22 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+  }
+
+  .presentation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+  }
+
+  .presentation-media {
+    display: none;
+  }
+
+  .titreGeneral {
+    display: none;
   }
 }
 
@@ -125,6 +176,10 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 320px;
+  padding: 20px;
+  border: 2px solid #4f7f88;
+  border-radius: 10px;
+  background: #7d928d;
 }
 
 .form-log .label {
@@ -157,17 +212,5 @@ export default {
   height: 32px;
   max-width: 120px;
   margin-bottom: 20px;
-}
-
-.presentation{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.titreGeneral {
-  text-align: center;
 }
 </style>

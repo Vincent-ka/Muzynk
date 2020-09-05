@@ -119,6 +119,11 @@ export default {
     justify-content: space-around;
     border-top: 2px solid black;
   }
+
+  .form-profil:first-of-type {
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
 }
 
 @media screen and (min-width: 980px) {
@@ -150,6 +155,10 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 320px;
+  padding: 20px;
+  border: 2px solid #4f7f88;
+  border-radius: 10px;
+  background: #7D928D;
 }
 
 .form-profil .label {
