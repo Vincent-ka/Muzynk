@@ -59,7 +59,7 @@ export default {
   methods: {
     async getUser() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8"
+        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
       );
       (this.firstname = apiRes.data.firstname),
         (this.lastname = apiRes.data.lastname),
@@ -69,7 +69,7 @@ export default {
       const { firstname, lastname, email } = this.$data;
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8",
+          process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935",
           {
             firstname,
             lastname,
@@ -85,7 +85,7 @@ export default {
     async deleteUser() {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre compte ?")) {
         await axios.delete(
-          process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8"
+          process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
         );
         location.href = "/signin-login";
       }

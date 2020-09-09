@@ -7,6 +7,7 @@ const postForumSchema = new Schema({
         ref: "User"
     },
     content: String,
+    prenom: String,
     date_published: Date,
     date_modified: Date
 });

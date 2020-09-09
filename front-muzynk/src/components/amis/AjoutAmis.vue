@@ -32,7 +32,7 @@ export default {
     },
     async getUserConnected() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8"
+        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
       );
       this.friendlist = apiRes.data.friendlist;
     },
@@ -41,7 +41,7 @@ export default {
       const { friendlist } = this.$data;
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8",
+          process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935",
           {
             friendlist
           }

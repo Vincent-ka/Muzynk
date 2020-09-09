@@ -119,10 +119,6 @@ export default {
   .titreGeneral {
     text-align: center;
   }
-
-  #burger {
-    display: none;
-  }
 }
 
 @media screen and (min-width: 980px) {

@@ -25,7 +25,7 @@ export default {
     },
     async getUser() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/5f3e335e2a1d9f2bc0f8a6a8"
+        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
       );
       this.firstname = apiRes.data.firstname,
       this.lastname = apiRes.data.lastname

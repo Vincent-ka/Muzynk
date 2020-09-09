@@ -7,6 +7,7 @@ const subjectSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref: "User"
     },
+    prenom: String,
     id_postsForum: [{
         type : Schema.Types.ObjectId,
         ref: "PostForum"

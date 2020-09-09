@@ -5,7 +5,7 @@
         <div class="postSujetContent" v-for="(post, index) in id_postsForum" :key="index">
           <div class="sujetAuteur">
             <router-link :to="'/ajout-amis/' + post.id_author"><div class="author-photo"></div></router-link>
-            <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.id_author}}</router-link></div>
+            <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link></div>
           <p class="contenuMessage">{{post.content}}</p>
         </div>
       </div>
@@ -23,10 +23,18 @@ export default {
   data() {
     return {
       content: "",
-      id_postsForum: []
+      id_postsForum: [],
+      prenom: ""
     };
   },
   methods: {
+    // Recuperer le prenom de l'utilisateur connecté pour afficher son prenom
+    async getPrenom() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
+      );
+      this.prenom = apiRes.data.firstname;
+    },
     // Fonction pour faire apparaitre le sujet
     async getSubject() {
       const apiRes = await axios.get(
@@ -40,7 +48,8 @@ export default {
         process.env.VUE_APP_BACKEND_URL + "/postsForum/",
         {
           content: this.content,
-          id_author: "5f3e335e2a1d9f2bc0f8a6a8"
+          id_author: "5f55e31c8687133234677935",
+          prenom: this.prenom
         }
       );
       this.content = "";
@@ -68,6 +77,7 @@ export default {
   },
   created() {
     try {
+      this.getPrenom();
       this.getSubject();
     } catch (err) {
       console.error(err);

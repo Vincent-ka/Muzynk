@@ -86,7 +86,6 @@ export default {
     justify-content: center;
   }
 }
-
 @media screen and (min-width: 980px) {
   .sectionFeed {
     width: 60%;
@@ -96,13 +95,11 @@ export default {
     justify-content: center;
   }
 }
-
 .sectionFeed > article {
   width: 90%;
   height: 90%;
   position: relative;
 }
-
 .feedbox {
   background: red;
   width: 100%;
@@ -111,7 +108,6 @@ export default {
   overflow-y: auto;
   border: 2px solid black;
 }
-
 .feedform {
   display: flex;
   position: absolute;
@@ -124,26 +120,21 @@ export default {
   border: 2px solid black;
   border-top: none;
 }
-
 .feed-submit {
   width: 50px;
   height: 100%;
   align-self: center;
   margin-left: auto;
 }
-
 .feedform div {
   align-self: center;
 }
-
 .feed-input {
   margin-left: 10px
 }
-
 .feed-input-file {
   margin-left: 10px;
 }
-
 .post {
   border-bottom: 1px solid;
   width: 100%;

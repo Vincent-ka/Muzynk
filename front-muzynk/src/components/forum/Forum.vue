@@ -7,11 +7,11 @@
             <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">{{sujet.title}}</router-link>
           </h2>
           <p class="creator-media"> Auteur : 
-            <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator-media">{{sujet.id_creator}}</router-link>
+            <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator-media">{{sujet.prenom}}</router-link>
           </p>
 
           <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator">
-            <p class="creator">{{sujet.id_creator}}</p>
+            <p class="creator">{{sujet.prenom}}</p>
           </router-link>
         </div>
       </div>
@@ -29,17 +29,25 @@ export default {
   data() {
     return {
       title: "",
-      id_subjects: []
+      id_subjects: [],
+      prenom: ""
     };
   },
   methods: {
+    // Recuperer le prnom de l'utilisateur connecté pour afficher son prenom
+    async getPrenom() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
+      );
+      this.prenom = apiRes.data.firstname;
+    },
     // Fonction pour faire apparaitre le forum
     async getForum() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/forums/5f3a7be4a9a37d200c17dddd"
       );
       this.id_subjects = apiRes.data.id_subjects;
-      console.log(apiRes.data.id_subjects[1])
+      console.log(apiRes.data.id_subjects)
     },
     // Fonction pour poster un nouveau sujet
     async postSubject() {
@@ -48,7 +56,8 @@ export default {
           process.env.VUE_APP_BACKEND_URL + "/subjects/",
           {
             title: this.title,
-            id_creator: "5f3e335e2a1d9f2bc0f8a6a8",
+            id_creator: "5f55e31c8687133234677935",
+            prenom: this.prenom,
             id_postsForum: []
           }
         );
@@ -76,6 +85,7 @@ export default {
   },
   created() {
     try {
+      this.getPrenom()
       this.getForum();
     } catch (err) {
       console.error(err);
@@ -93,25 +103,21 @@ export default {
     align-items: center;
     justify-content: center;
   }
-
   .titre-sujet {
     width: 100%;
     background: #698880;
     padding: 20px;
     text-align: center;
   }
-
   .link-sujet {
     color: black;
     text-decoration: none;
     font-weight: bold;
     width: 100%;
   }
-
   .link-creator {
     display: none;
   }
-
   .creator-media {
     display: block;
     width: 100%;
@@ -119,14 +125,12 @@ export default {
     padding: 20px;
     text-align: center;
   }
-
   .postSujet {
     display: flex;
     flex-direction: column;
     border-bottom: 2px solid black;
   }
 }
-
 @media screen and (min-width: 980px) {
   .sectionForum {
     width: 60%;
@@ -135,13 +139,11 @@ export default {
     align-items: center;
     justify-content: center;
   }
-
   .titre-sujet {
     width: 70%;
     background: #698880;
     padding: 20px;
   }
-
   .link-sujet {
     color: black;
     text-decoration: none;
@@ -151,20 +153,17 @@ export default {
   .creator-media {
     display: none;
   }
-
   .postSujet {
     border-bottom: 3px solid black;
     display: flex;
     justify-content: space-between;
   }
 }
-
 .sectionForum > article {
   width: 90%;
   height: 90%;
   position: relative;
 }
-
 .forumbox {
   width: 100%;
   height: 95%;
@@ -172,7 +171,6 @@ export default {
   overflow-y: auto;
   border: 2px solid black;
 }
-
 .forumform {
   display: flex;
   position: absolute;
@@ -184,18 +182,15 @@ export default {
   justify-content: center;
   border-top: none;
 }
-
 .forum-submit {
   width: 50px;
   height: 100%;
   align-self: center;
   margin-left: auto;
 }
-
 .forum-input {
   width: 100%;
 }
-
 .link-creator {
   color: black;
   text-decoration: none;
@@ -203,17 +198,14 @@ export default {
   font-size: 10px;
   align-self: flex-end;
 }
-
 .link-creator-media {
   color: black;
   text-decoration: none;
 }
-
 .link-sujet:hover,
 .link-creator:hover {
   text-decoration: underline;
 }
-
 .titre-sujet {
   font-size: 20px;
 }
