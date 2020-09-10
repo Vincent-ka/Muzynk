@@ -2,7 +2,7 @@
   <section class="sectionNom">
     <article>
       <div></div>
-      <p>{{firstname}} {{lastname}}</p>
+      <p>{{ this.firstname }} {{ this.lastname }}</p>
     </article>
   </section>
 </template>
@@ -12,30 +12,30 @@ import axios from "axios";
 export default {
   data() {
     return {
-      firstname: '',
-      lastname: ''
+      firstname: "",
+      lastname: ""
+    }
+  },
+  computed: {
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   },
   methods: {
-    sendPost(e) {
-      e.preventDefault();
-      this.posts.push(this.post);
-      this.post = ""
-
-    },
     async getUser() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
+        process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
-      this.firstname = apiRes.data.firstname,
-      this.lastname = apiRes.data.lastname
-    }
+      this.firstname = apiRes.data.firstname;
+      this.lastname = apiRes.data.lastname;
+    },
   },
   created() {
     try {
       this.getUser();
-    } catch(err) {
-      console.error(err)
+    } catch (err) {
+      console.error(err);
     }
   }
 };

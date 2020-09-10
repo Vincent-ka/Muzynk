@@ -20,7 +20,7 @@
             <img src="./../../assets/profil.png" alt="picto du profil" />
             <router-link to="/profil">Profil</router-link>
           </li>
-          <li class="dashboard lien-opa ">
+          <li v-if="currentUser && currentUser.role === 'admin'" class="dashboard lien-opa ">
             <img src="./../../assets/profil.png" alt="picto du profil" />
             <router-link to="/dashboard">Dashboard</router-link>
           </li>
@@ -35,6 +35,12 @@ export default {
   data() {
     return {
       isActive: false
+    }
+  },
+  computed: {
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   },
   methods: {

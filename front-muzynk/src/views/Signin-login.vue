@@ -6,14 +6,14 @@
     >Vous êtes passionné de musique et souhaitez échanger avec des personnes ayant le même intérêt ? Vous ête au bon endroit</p>
     <section class="sectionLog">
       <article class="formPres">
-        <form action="#" class="form-log">
+        <form class="form-log" v-on:submit.prevent="signin">
           <h3>Connectez-vous</h3>
 
           <label for="input-email-log" class="is-clickable">Email</label>
-          <input id="input-email-log" type="email" class="input" name="email" />
+          <input id="input-email-log" type="email" class="input" name="email" autocomplete="email" v-model="connexion.email" />
 
           <label for="input-password-log" class="is-clickable">Mot de passe</label>
-          <input id="input-password-log" type="password" class="input" name="password" />
+          <input id="input-password-log" type="password" class="input" name="password" autocomplete="current-password" v-model="connexion.password"/>
           <button class="btn">ok</button>
         </form>
       </article>
@@ -24,7 +24,7 @@
       </article>
 
       <article class="formPres">
-        <form class="form-log" @submit.prevent="postUser">
+        <form class="form-log" @submit.prevent="signup">
           <h3>Inscrivez vous</h3>
 
           <label for="input-firstname" class="is-clickable">Prénom</label>
@@ -33,14 +33,15 @@
             type="text"
             class="input"
             name="firstname"
-            v-model="firstname"
+            autocomplete="given-name"
+            v-model="user.firstname"
           />
 
           <label for="input-lastname" class="is-clickable">Nom de famille</label>
-          <input id="input-lastname" type="text" class="input" name="lastname" v-model="lastname" />
+          <input id="input-lastname" type="text" class="input" name="lastname" autocomplete="family-name" v-model="user.lastname" />
 
           <label for="input-email-sign" class="is-clickable">Email</label>
-          <input id="input-email-sign" type="email" class="input" name="email" v-model="email" />
+          <input id="input-email-sign" type="email" class="input" name="email" autocomplete="email" v-model="user.email" />
 
           <label for="input-password-sign" class="is-clickable">Mot de passe</label>
           <input
@@ -48,11 +49,10 @@
             type="password"
             class="input"
             name="password"
-            v-model="password"
+            autocomplete="current-password"
+            v-model="user.password"
           />
 
-          <label for="input-checkpassword" class="is-clickable">Confirmation mot de passe</label>
-          <input id="input-checkpassword" type="password" class="input" name="checkpassword" />
           <button class="btn">ok</button>
         </form>
       </article>
@@ -61,29 +61,46 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: ""
+      user: {
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+      },
+      connexion: {
+        email: "",
+        password: ""
+      }
     };
   },
   methods: {
-    async postUser() {
-      const apiRes = await axios.post(
-        process.env.VUE_APP_BACKEND_URL + "/users/",
-        {
-          firstname: this.firstname,
-          lastname: this.lastname,
-          email: this.email,
-          password: this.password
-        }
-      );
-      console.log(apiRes.data);
-      location.href = "/";
+    updateAvatar(image) {
+      console.log(image);
+    },
+    signup() {
+      const fd = new FormData(); // form data nécessaire pour envoyer des fichiers images (files)
+      fd.append("firstname", this.user.firstname);
+      fd.append("lastname", this.user.lastname);
+      fd.append("email", this.user.email);
+      fd.append("password", this.user.password);
+      if (this.user.avatar) fd.append("avatar", this.user.avatar);
+      this.$store.dispatch("user/signup", fd);
+    },
+    signin() {
+      this.$store
+        .dispatch("user/signin", {
+          email: this.connexion.email,
+          password: this.connexion.password
+        })
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
     }
   }
 };
@@ -99,7 +116,6 @@ export default {
     width: 100%;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
   }
 
   article.presentation {

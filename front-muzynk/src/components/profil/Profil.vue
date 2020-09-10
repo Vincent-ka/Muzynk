@@ -1,16 +1,17 @@
 <template>
   <section class="sectionProfil">
     <article>
+      <!-- <p>Hello {{ currentUser.firstname }}</p> -->
       <form action="#" class="form-profil" @submit.prevent="patchUser">
         <h3>Mettre à jour votre profil</h3>
         <label for="input-firstname" class="is-clickable">Prénom</label>
-        <input id="input-firtname" type="text" class="input" name="firstname" v-model="firstname" />
+        <input id="input-firstname" type="text" class="input" name="firstname" value="" v-model="firstname" />
 
         <label for="input-lastname" class="is-clickable">Nom de famille</label>
         <input id="input-lastname" type="text" class="input" name="lastname" v-model="lastname" />
 
         <label for="input-email" class="is-clickable">Email</label>
-        <input id="input-emailname" type="email" class="input" name="email" v-model="email" />
+        <input id="input-email" type="email" class="input" name="email" v-model="email" />
         <button class="btn">ok</button>
       </form>
     </article>
@@ -40,7 +41,7 @@
     </article>
 
     <article class="gerer">
-      <router-link :to="'/signin-login'" class="link-deco gerer-profil">Déconnexion</router-link>
+      <button @click="signout">Déconnexion</button>
       <p class="gerer-profil" @click="deleteUser">Effacer son profil</p>
     </article>
   </section>
@@ -48,18 +49,25 @@
 
 <script>
 import axios from "axios";
+import auth from "@/auth/";
 export default {
   data() {
     return {
       firstname: "",
       lastname: "",
-      email: ""
+      email: "",
     };
+  },
+  computed: {
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    }
   },
   methods: {
     async getUser() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
+        process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
       (this.firstname = apiRes.data.firstname),
         (this.lastname = apiRes.data.lastname),
@@ -69,7 +77,7 @@ export default {
       const { firstname, lastname, email } = this.$data;
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935",
+          process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id,
           {
             firstname,
             lastname,
@@ -89,6 +97,10 @@ export default {
         );
         location.href = "/signin-login";
       }
+    },
+    signout() {
+      auth.signout(this); //  on passe l'instance de vue à la fonction de déconnection
+      location.href = "/signin-login"
     }
   },
   created() {

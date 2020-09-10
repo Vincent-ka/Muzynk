@@ -3,8 +3,12 @@ require("./config/mongo");
 
 const createError = require('http-errors');
 const express = require('express');
+const session = require("express-session");
+const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo")(session);
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const morgan = require("morgan");
 const logger = require('morgan');
 
 const cors = require('cors')
@@ -15,6 +19,20 @@ const indexRouter = require('./routes/index');
 const app = express();
 
 app.use(cors())
+
+// SESSION SETUP
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 60000 }, // in millisec
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60 * 60, // 1 day
+    }),
+    saveUninitialized: true,
+    resave: false,
+  })
+);
 
 const server = app.listen(3001);
 
@@ -33,25 +51,12 @@ io.on('connection', function(socket) {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+app.use(morgan("dev"));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// // SESSION SETUP
-// app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     cookie: { maxAge: 60000 }, // in millisec
-//     store: new MongoStore({
-//       mongooseConnection: mongoose.connection,
-//       ttl: 24 * 60 * 60, // 1 day
-//     }),
-//     saveUninitialized: true,
-//     resave: true,
-//   })
-// );
 
 app.use('/', indexRouter);
 app.use("/users", require("./routes/users"));
@@ -62,6 +67,7 @@ app.use("/postsForum", require("./routes/postsForum"));
 app.use("/feeds", require("./routes/feeds"));
 app.use("/postsFeed", require("./routes/postsFeed"));
 app.use("/tags", require("./routes/tags"));
+app.use("/auth", require("./routes/auth"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

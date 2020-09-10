@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import auth from "@/auth/";
 
 Vue.use(VueRouter);
 
@@ -43,6 +44,12 @@ const routes = [
   {
     path: "/signin-login",
     name: "Signin-Login",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (auth.getLocalAuthToken()) next("/profil");
+      // un utilisateur déjà connecté sera redirigé vers le dashboard...
+      else next();
+    },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Signin-login.vue")
   },

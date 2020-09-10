@@ -9,12 +9,21 @@
 <script>
 
 import Header from './views/Header';
-import Footer from './views/Footer'
+import Footer from './views/Footer';
+import auth from "@/auth";
 
 export default {
   components: {
     Header,
     Footer
+  },
+  beforeCreate() {
+    const currentUser = this.$store.getters["user/current"];
+    const token = auth.getLocalAuthToken();
+
+    if (token && !currentUser) {
+      this.$store.dispatch("user/getUserByToken");
+    }
   }
 }
 </script>

@@ -33,14 +33,13 @@ export default {
       prenom: ""
     };
   },
+  computed: {
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    }
+  },
   methods: {
-    // Recuperer le prnom de l'utilisateur connecté pour afficher son prenom
-    async getPrenom() {
-      const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
-      );
-      this.prenom = apiRes.data.firstname;
-    },
     // Fonction pour faire apparaitre le forum
     async getForum() {
       const apiRes = await axios.get(
@@ -56,8 +55,8 @@ export default {
           process.env.VUE_APP_BACKEND_URL + "/subjects/",
           {
             title: this.title,
-            id_creator: "5f55e31c8687133234677935",
-            prenom: this.prenom,
+            id_creator: this.currentUser._id,
+            prenom: this.currentUser.firstname,
             id_postsForum: []
           }
         );
@@ -85,7 +84,6 @@ export default {
   },
   created() {
     try {
-      this.getPrenom()
       this.getForum();
     } catch (err) {
       console.error(err);

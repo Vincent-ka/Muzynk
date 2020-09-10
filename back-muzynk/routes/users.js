@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const UserModel = require("./../models/User");
-const { populate } = require('./../models/User');
+const auth = require("./../auth/index");
 
 // POST
 router.post("/", async (req, res, next) => {
@@ -57,5 +57,19 @@ router.patch("/:id", async (req, res, next) => {
     next(err)
   }
 })
+
+router.patch("/:id", auth.authenticate, async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = router;
