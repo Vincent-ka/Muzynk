@@ -6,7 +6,7 @@
           <li id="closeNavigation" @click="closeNav">X</li>
           <li class="forum lien-opa">
             <img src="./../../assets/accueil.png" alt="picto de l'accueil" />
-            <router-link to="/">Forum</router-link>
+            <router-link to="/forum">Forum</router-link>
           </li>
           <li class="feed lien-opa">
             <img src="./../../assets/feed.png" alt="picto du feed" />

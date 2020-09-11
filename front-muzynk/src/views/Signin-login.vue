@@ -10,10 +10,10 @@
           <h3>Connectez-vous</h3>
 
           <label for="input-email-log" class="is-clickable">Email</label>
-          <input id="input-email-log" type="email" class="input" name="email" autocomplete="email" v-model="connexion.email" />
+          <input id="input-email-log" type="email" class="input" name="email" autocomplete="email" v-model="connexion.email" required/>
 
           <label for="input-password-log" class="is-clickable">Mot de passe</label>
-          <input id="input-password-log" type="password" class="input" name="password" autocomplete="current-password" v-model="connexion.password"/>
+          <input id="input-password-log" type="password" class="input" name="password" autocomplete="current-password" required v-model="connexion.password"/>
           <button class="btn">ok</button>
         </form>
       </article>
@@ -35,13 +35,14 @@
             name="firstname"
             autocomplete="given-name"
             v-model="user.firstname"
+            required
           />
 
           <label for="input-lastname" class="is-clickable">Nom de famille</label>
-          <input id="input-lastname" type="text" class="input" name="lastname" autocomplete="family-name" v-model="user.lastname" />
+          <input id="input-lastname" type="text" class="input" name="lastname" autocomplete="family-name" v-model="user.lastname" required/>
 
           <label for="input-email-sign" class="is-clickable">Email</label>
-          <input id="input-email-sign" type="email" class="input" name="email" autocomplete="email" v-model="user.email" />
+          <input id="input-email-sign" type="email" class="input" name="email" autocomplete="email" v-model="user.email" required/>
 
           <label for="input-password-sign" class="is-clickable">Mot de passe</label>
           <input
@@ -51,6 +52,7 @@
             name="password"
             autocomplete="current-password"
             v-model="user.password"
+            required
           />
 
           <button class="btn">ok</button>
@@ -96,7 +98,7 @@ export default {
           password: this.connexion.password
         })
         .then(() => {
-          this.$router.push("/");
+          this.$router.push("/profil");
         })
         .catch(err => {
           console.log(err.message);

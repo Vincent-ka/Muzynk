@@ -69,9 +69,9 @@ export default {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
-      (this.firstname = apiRes.data.firstname),
-        (this.lastname = apiRes.data.lastname),
-        (this.email = apiRes.data.email);
+      this.firstname = apiRes.data.firstname
+      this.lastname = apiRes.data.lastname
+      this.email = apiRes.data.email
     },
     async patchUser() {
       const { firstname, lastname, email } = this.$data;
@@ -95,12 +95,12 @@ export default {
         await axios.delete(
           process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
         );
-        location.href = "/signin-login";
+        this.$router.push("/");
       }
     },
     signout() {
       auth.signout(this); //  on passe l'instance de vue à la fonction de déconnection
-      location.href = "/signin-login"
+      this.$router.push("/");
     }
   },
   created() {

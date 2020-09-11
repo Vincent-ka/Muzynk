@@ -44,13 +44,16 @@ export default {
             auth.deleteLocalAuthToken();
             context.commit("setCurrent", null);
             reject(err);
+            alert("l'email ou le mot de passe sont invalides")
           });
       });
     },
     async signup(context, userInfos) {
       try {
         await handler.post("/auth/signup", userInfos);
+        alert("Vous êtes bien inscrit, vous pouvez maintenant vous connectez")
       } catch (err) {
+        alert("Désolé, cet email n'est pas disponible.")
         // problème au signup ...
         const method = err.response.status.toString().startsWith("4")
           ? "warn"

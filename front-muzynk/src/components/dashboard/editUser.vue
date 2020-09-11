@@ -41,7 +41,7 @@ export default {
       } catch (apiErr) {
         console.error(apiErr);
       }
-      location.href = "/dashboard";
+      this.$router.push("/dashboard");
     }
   },
   created() {
