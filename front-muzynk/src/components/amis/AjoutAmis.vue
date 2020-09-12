@@ -5,7 +5,7 @@
       <div>
       <button @click="addFriend" class="btn">oui</button>
       <button class="btn">
-        <router-link :to="'/'" class="link">non</router-link>
+        <router-link :to="'/forum'" class="link">non</router-link>
       </button>
       </div>
     </article>
@@ -22,6 +22,12 @@ export default {
       friendlist: []
     };
   },
+  computed: {
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    }
+  },
   methods: {
     async getUser() {
       const apiRes = await axios.get(
@@ -32,7 +38,7 @@ export default {
     },
     async getUserConnected() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
+        process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
       this.friendlist = apiRes.data.friendlist;
     },
@@ -41,16 +47,16 @@ export default {
       const { friendlist } = this.$data;
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935",
+          process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id,
           {
             friendlist
           }
         );
         console.log(apiRes);
+        this.$router.push("/forum")
       } catch (apiErr) {
         console.error(apiErr);
       }
-      location.href = "/";
     }
   },
   created() {

@@ -41,7 +41,7 @@
     </article>
 
     <article class="gerer">
-      <button @click="signout">Déconnexion</button>
+      <button class="gerer-profil" @click="signout">Déconnexion</button>
       <p class="gerer-profil" @click="deleteUser">Effacer son profil</p>
     </article>
   </section>
@@ -93,9 +93,9 @@ export default {
     async deleteUser() {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre compte ?")) {
         await axios.delete(
-          process.env.VUE_APP_BACKEND_URL + "/users/5f55e31c8687133234677935"
+          process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
         );
-        this.$router.push("/");
+        this.signout()
       }
     },
     signout() {

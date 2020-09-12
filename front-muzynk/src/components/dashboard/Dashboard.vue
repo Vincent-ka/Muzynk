@@ -120,7 +120,7 @@ export default {
   }
 
   .table-user {
-    border: 3px solid black;
+    border: 2px solid #4f7f88;
     border-collapse: collapse;
     width: 100%;
     background: #B1C1C0;

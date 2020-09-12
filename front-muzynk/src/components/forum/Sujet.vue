@@ -4,13 +4,17 @@
       <div class="sujetbox">
         <div class="postSujetContent" v-for="(post, index) in id_postsForum" :key="index">
           <div class="sujetAuteur">
-            <router-link :to="'/ajout-amis/' + post.id_author"><div class="author-photo"></div></router-link>
-            <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link></div>
+            <router-link :to="'/ajout-amis/' + post.id_author">
+              <div class="author-photo"></div>
+            </router-link>
+            <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link>
+          </div>
           <p class="contenuMessage">{{post.content}}</p>
+          <span class="supp-post" @click="deleteMessage(post._id)" v-if="currentUser._id === post.id_author">x</span>
         </div>
       </div>
       <form class="sujetform" @submit.prevent="postContent">
-          <input class="sujet-input" type="text" placeholder="Créer un post" v-model="content" />
+        <input class="sujet-input" type="text" placeholder="Créer un post" v-model="content" />
         <button class="sujet-submit">Send</button>
       </form>
     </article>
@@ -29,7 +33,7 @@ export default {
   },
   computed: {
     currentUser() {
-      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   },
@@ -72,7 +76,15 @@ export default {
         console.error(apiErr);
       }
       this.getSubject();
-    }
+    },
+    async deleteMessage(id) {
+      if (confirm("Etes vous sûr de bien vouloir supprimer votre message ?")) {
+        await axios.delete(
+          process.env.VUE_APP_BACKEND_URL + "/postsForum/" + id
+        );
+        this.getSubject()
+      }
+    },
   },
   created() {
     try {
@@ -183,8 +195,13 @@ export default {
 
 .contenuMessage {
   width: 80%;
-  background: #B1C1C0;
+  background: #b1c1c0;
   text-align: center;
   padding: 3px;
 }
+.supp-post {
+    float: right;
+    background: #B1C1C0;
+    cursor: pointer;
+  }
 </style>

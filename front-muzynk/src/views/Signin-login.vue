@@ -90,6 +90,10 @@ export default {
       fd.append("password", this.user.password);
       if (this.user.avatar) fd.append("avatar", this.user.avatar);
       this.$store.dispatch("user/signup", fd);
+      this.user.firstname = "";
+      this.user.lastname = "";
+      this.user.email = "";
+      this.user.password = "";
     },
     signin() {
       this.$store

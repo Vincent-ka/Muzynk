@@ -5,6 +5,7 @@
         <div class="postSujet" v-for="(sujet, index) in id_subjects" :key="index">
           <h2 class="titre-sujet">
             <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">{{sujet.title}}</router-link>
+            <span class="supp-sujet" @click="deleteMessage(sujet._id)" v-if="currentUser._id === sujet.id_creator">x</span>
           </h2>
           <p class="creator-media"> Auteur : 
             <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator-media">{{sujet.prenom}}</router-link>
@@ -34,12 +35,20 @@ export default {
     };
   },
   computed: {
+    // REcuperer le user connecté
     currentUser() {
       const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   },
   methods: {
+    // Recuperer le nom du user
+    async getUser() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
+      );
+      this.prenom = apiRes.data.firstname;
+    },
     // Fonction pour faire apparaitre le forum
     async getForum() {
       const apiRes = await axios.get(
@@ -56,7 +65,7 @@ export default {
           {
             title: this.title,
             id_creator: this.currentUser._id,
-            prenom: this.currentUser.firstname,
+            prenom: this.prenom,
             id_postsForum: []
           }
         );
@@ -80,10 +89,19 @@ export default {
         console.error(apiErr);
       }
       this.getForum();
-    }
+    },
+    async deleteMessage(id) {
+      if (confirm("Etes vous sûr de bien vouloir supprimer votre sujet ?")) {
+        await axios.delete(
+          process.env.VUE_APP_BACKEND_URL + "/subjects/" + id
+        );
+        this.getForum()
+      }
+    },
   },
   created() {
     try {
+      this.getUser()
       this.getForum();
     } catch (err) {
       console.error(err);
@@ -195,6 +213,7 @@ export default {
   padding: 5px;
   font-size: 10px;
   align-self: flex-end;
+
 }
 .link-creator-media {
   color: black;
@@ -207,4 +226,8 @@ export default {
 .titre-sujet {
   font-size: 20px;
 }
+.supp-sujet {
+    float: right;
+    cursor: pointer;
+  }
 </style>
