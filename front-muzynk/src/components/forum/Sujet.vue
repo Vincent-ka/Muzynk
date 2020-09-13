@@ -10,7 +10,7 @@
             <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link>
           </div>
           <p class="contenuMessage">{{post.content}}</p>
-          <span class="supp-post" @click="deleteMessage(post._id)" v-if="currentUser._id === post.id_author">x</span>
+          <span class="supp-post" @click="deleteMessage(post._id)" v-if="currentUser._id === post.id_author || currentUser.role === 'admin'">x</span>
         </div>
       </div>
       <form class="sujetform" @submit.prevent="postContent">

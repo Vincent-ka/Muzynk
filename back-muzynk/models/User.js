@@ -11,6 +11,10 @@ const userSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref: "User"
     }],
+    fil: [{
+        type : Schema.Types.ObjectId,
+        ref: "Feed"
+    }],
     role: {
         type: String,
         enum: ["admin", "user", "moderator"],

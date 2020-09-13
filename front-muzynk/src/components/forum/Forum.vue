@@ -5,7 +5,7 @@
         <div class="postSujet" v-for="(sujet, index) in id_subjects" :key="index">
           <h2 class="titre-sujet">
             <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">{{sujet.title}}</router-link>
-            <span class="supp-sujet" @click="deleteMessage(sujet._id)" v-if="currentUser._id === sujet.id_creator">x</span>
+            <span class="supp-sujet" @click="deleteMessage(sujet._id)" v-if="currentUser._id === sujet.id_creator || currentUser.role === 'admin'">x</span>
           </h2>
           <p class="creator-media"> Auteur : 
             <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator-media">{{sujet.prenom}}</router-link>
@@ -55,7 +55,7 @@ export default {
         process.env.VUE_APP_BACKEND_URL + "/forums/5f3a7be4a9a37d200c17dddd"
       );
       this.id_subjects = apiRes.data.id_subjects;
-      console.log(apiRes.data.id_subjects)
+      console.log("lol", apiRes.data)
     },
     // Fonction pour poster un nouveau sujet
     async postSubject() {

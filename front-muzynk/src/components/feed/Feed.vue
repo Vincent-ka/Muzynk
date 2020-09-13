@@ -9,7 +9,6 @@
       <form class="feedform" @submit.prevent="postContent">
         <div>
           <input class="feed-input" type="text" placeholder="poster du contenu" v-model="post"/>
-          <input class="feed-input-file" type="file">
         </div>
         <button type="submit" class="feed-submit">Send</button>
       </form>
@@ -23,16 +22,55 @@ export default {
   data() {
     return {
       post: "",
-      id_postsFeed: []
+      id_postsFeed: [],
+      fil: [],
+    }
+  },
+  computed: {
+    // REcuperer le user connecté
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   },
   methods: {
-    // Fonction pour faire apparaitre le feed de l'utilisateur
+     // Fonction pour faire apparaitre le feed de l'utilisateur
     async getFeed() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/feeds/5f46ada43ae36925306f3934"
+        process.env.VUE_APP_BACKEND_URL + "/feeds/" + this.currentUser.fil
       );
       this.id_postsFeed = apiRes.data.id_postsFeed
+    },
+    async patchUser(id) {
+      this.fil.push(id);
+      const { fil } = this.$data
+      try {
+        const apiRes = await axios.patch(
+          process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id,
+          {
+            fil
+          }
+        );
+        console.log("resultat du patch", apiRes);
+      } catch (apiErr) {
+        console.error(apiErr)
+      }
+    },
+    async checkFeed() {
+      this.fil = this.currentUser.fil
+      if (this.fil.length === 0) {
+        const apiRes = await axios.post(
+          process.env.VUE_APP_BACKEND_URL + "/feeds/", {
+            id_author: this.currentUser._id,
+            id_postsFeed : []
+          }
+        );
+        console.log("le post", apiRes.data._id)
+        this.patchUser(apiRes.data._id)
+        this.getFeed()
+      } else {
+        this.getFeed()
+      }
     },
     // Fonction pour poster un nouveau post 
     async postContent() {
@@ -47,13 +85,12 @@ export default {
       this.patchFeed(apiRes.data._id)
       }
     },
-    // Fonction pour modifier le feed et y ajouter le post posté
     async patchFeed(id) {
       this.id_postsFeed.push(id);
       const { id_postsFeed } = this.$data;
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/feeds/5f46ada43ae36925306f3934",
+          process.env.VUE_APP_BACKEND_URL + "/feeds/" + this.currentUser.fil,
           {
             id_postsFeed
           }
@@ -64,11 +101,20 @@ export default {
       };
       this.getFeed()
     }
+    // // Fonction pour faire apparaitre le feed de l'utilisateur
+    // async getFeed() {
+    //   const apiRes = await axios.get(
+    //     process.env.VUE_APP_BACKEND_URL + "/feeds/5f46ada43ae36925306f3934"
+    //   );
+    //   this.id_postsFeed = apiRes.data.id_postsFeed
+    // },
+    // Fonction pour modifier le feed et y ajouter le post posté
   },
   // Faire aparaitre le feed à la création de la page
   created() {
     try {
-      this.getFeed();
+      this.checkFeed()
+      // this.getFeed();
     } catch (err) {
       console.error(err);
     }
