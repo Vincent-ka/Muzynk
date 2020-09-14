@@ -1,6 +1,6 @@
 <template>
   <main class="main-log">
-    <h1 class="titreGeneral">Bienvenue sur muzink</h1>
+    <h1 class="titreGeneral">Bienvenue sur Muzynk</h1>
     <p
       class="presentation-media"
     >Vous êtes passionné de musique et souhaitez échanger avec des personnes ayant le même intérêt ? Vous ête au bon endroit</p>

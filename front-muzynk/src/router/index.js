@@ -54,6 +54,30 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/MainFeed.vue")
   },
   {
+    path: "/listeAmis",
+    name: "ListeAmis",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/");
+      // un utilisateur déjà connecté sera redirigé vers le dashboard...
+      else next();
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/MainListeAmis.vue")
+  },
+  {
+    path: "/feedAmi/:id",
+    name: "FeedAmi",
+    beforeEnter: (to, from, next) => {
+      // on vérifie l'état de connexion:
+      if (!auth.getLocalAuthToken()) next("/");
+      // un utilisateur déjà connecté sera redirigé vers le dashboard...
+      else next();
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/MainFeedAmi.vue")
+  },
+  {
     path: "/ajout-amis/:id",
     name: "AjoutAmis",
     beforeEnter: (to, from, next) => {

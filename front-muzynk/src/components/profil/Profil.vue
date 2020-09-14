@@ -219,4 +219,7 @@ export default {
   background: #efefef;
   cursor: pointer;
 }
+.gerer-profil:hover {
+  background: #7D928D;
+}
 </style>

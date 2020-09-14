@@ -11,6 +11,9 @@
           <input class="feed-input" type="text" placeholder="poster du contenu" v-model="post"/>
         </div>
         <button type="submit" class="feed-submit">Send</button>
+        <router-link :to="'/listeAmis/'" class="lien-liste-amis">
+        <p>Feed ami</p>
+        </router-link>
       </form>
     </article>
   </section>
@@ -27,7 +30,7 @@ export default {
     }
   },
   computed: {
-    // REcuperer le user connecté
+    // Recuperer le user connecté
     currentUser() {
       const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
@@ -41,21 +44,7 @@ export default {
       );
       this.id_postsFeed = apiRes.data.id_postsFeed
     },
-    async patchUser(id) {
-      this.fil.push(id);
-      const { fil } = this.$data
-      try {
-        const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id,
-          {
-            fil
-          }
-        );
-        console.log("resultat du patch", apiRes);
-      } catch (apiErr) {
-        console.error(apiErr)
-      }
-    },
+    // Fonction pour checker si le user a un feed ou non
     async checkFeed() {
       this.fil = this.currentUser.fil
       if (this.fil.length === 0) {
@@ -72,6 +61,22 @@ export default {
         this.getFeed()
       }
     },
+    // Fonction pour ajouter le feed créer chez le user
+    async patchUser(id) {
+      this.fil.push(id);
+      const { fil } = this.$data
+      try {
+        const apiRes = await axios.patch(
+          process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id,
+          {
+            fil
+          }
+        );
+        console.log("resultat du patch", apiRes);
+      } catch (apiErr) {
+        console.error(apiErr)
+      }
+    },
     // Fonction pour poster un nouveau post 
     async postContent() {
       if (this.post.length != 0) {
@@ -85,6 +90,7 @@ export default {
       this.patchFeed(apiRes.data._id)
       }
     },
+    // Fonction pour ajouter le post posté dans le feed
     async patchFeed(id) {
       this.id_postsFeed.push(id);
       const { id_postsFeed } = this.$data;
@@ -101,14 +107,6 @@ export default {
       };
       this.getFeed()
     }
-    // // Fonction pour faire apparaitre le feed de l'utilisateur
-    // async getFeed() {
-    //   const apiRes = await axios.get(
-    //     process.env.VUE_APP_BACKEND_URL + "/feeds/5f46ada43ae36925306f3934"
-    //   );
-    //   this.id_postsFeed = apiRes.data.id_postsFeed
-    // },
-    // Fonction pour modifier le feed et y ajouter le post posté
   },
   // Faire aparaitre le feed à la création de la page
   created() {
@@ -130,6 +128,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+@media screen and (min-width: 320px) and (max-width: 350px) {
+  .lien-liste-amis > p {
+    font-size: 10px;
+    padding: 5px;
   }
 }
 @media screen and (min-width: 980px) {
@@ -186,5 +190,13 @@ export default {
   width: 100%;
   background: #B1C1C0;
   padding: 20px;
+}
+.lien-liste-amis {
+  text-decoration: none;
+  color: black;
+  border-left: 1px solid black;
+  display: flex;
+  align-items: center;
+  background: #7D928D;
 }
 </style>
