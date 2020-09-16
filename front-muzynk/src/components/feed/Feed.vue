@@ -2,8 +2,9 @@
   <section class="sectionFeed">
     <article>
       <div class="feedbox" >
-        <p class="post" v-for="(post, index) in id_postsFeed" :key="index">
-          {{post.content}}
+        <p class="emptyFeed" v-if="this.id_postsFeed.length === 0">Votre fil d'actualité est vide. Essayez de poster votre premier message.</p>
+        <p class="post" v-for="(post, index) in id_postsFeed.slice().reverse()" :key="index">
+          {{post.content}} <span class="supp-postFeed" @click="deletePost(post._id)">x</span>
         </p>
       </div>
       <form class="feedform" @submit.prevent="postContent">
@@ -106,7 +107,15 @@ export default {
         console.error(apiErr)
       };
       this.getFeed()
-    }
+    },
+    async deletePost(id) {
+      if (confirm("Etes vous sûr de bien vouloir supprimer votre post ?")) {
+        await axios.delete(
+          process.env.VUE_APP_BACKEND_URL + "/postsFeed/" + id
+        );
+        this.getFeed()
+      }
+    },
   },
   // Faire aparaitre le feed à la création de la page
   created() {
@@ -198,5 +207,15 @@ export default {
   display: flex;
   align-items: center;
   background: #7D928D;
+}
+.supp-postFeed {
+  float: right;
+  cursor: pointer;
+}
+.emptyFeed {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 20px;
 }
 </style>

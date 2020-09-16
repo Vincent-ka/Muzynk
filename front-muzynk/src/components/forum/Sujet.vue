@@ -5,7 +5,9 @@
         <div class="postSujetContent" v-for="(post, index) in id_postsForum" :key="index">
           <div class="sujetAuteur">
             <router-link :to="'/ajout-amis/' + post.id_author">
-              <div class="author-photo"></div>
+              <figure class="author-photo">
+                <img class="postDisplayImg" :src="post.avatar" alt="avatar de l'utilisateur ayant posté le post">
+              </figure>
             </router-link>
             <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link>
           </div>
@@ -28,7 +30,8 @@ export default {
     return {
       content: "",
       id_postsForum: [],
-      prenom: ""
+      prenom: "",
+      avatar: "",
     };
   },
   computed: {
@@ -52,7 +55,8 @@ export default {
         {
           content: this.content,
           id_author: this.currentUser._id,
-          prenom: this.currentUser.firstname
+          prenom: this.currentUser.firstname,
+          avatar: this.currentUser.avatar,
         }
       );
       this.content = "";
@@ -105,15 +109,11 @@ export default {
     align-items: center;
     justify-content: center;
   }
-
-  .link-author {
-    display: none;
-  }
-
   .author-photo {
-    width: 45px;
-    height: 45px;
-    border: 1px solid black;
+    margin: auto;
+  }
+  .postDisplayImg {
+    width: 90%;
     border-radius: 50%;
   }
 }
@@ -126,9 +126,12 @@ export default {
     align-items: center;
     justify-content: center;
   }
-
   .author-photo {
-    display: none;
+    margin: auto;
+  }
+  .postDisplayImg {
+    width: 50%;
+    border-radius: 50%;
   }
 }
 
@@ -179,7 +182,7 @@ export default {
   width: 20%;
   background: #698880;
   text-align: center;
-  padding: 3%;
+  padding: 10px;
   border-right: 1px solid black;
   font-size: 10px;
 }

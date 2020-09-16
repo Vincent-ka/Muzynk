@@ -2,7 +2,7 @@
   <section class="sectionForum">
     <article>
       <div class="forumbox">
-        <div class="postSujet" v-for="(sujet, index) in id_subjects" :key="index">
+        <div class="postSujet" v-for="(sujet, index) in id_subjects.slice().reverse()" :key="index">
           <h2 class="titre-sujet">
             <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">{{sujet.title}}</router-link>
             <span class="supp-sujet" @click="deleteMessage(sujet._id)" v-if="currentUser._id === sujet.id_creator || currentUser.role === 'admin'">x</span>
@@ -31,7 +31,7 @@ export default {
     return {
       title: "",
       id_subjects: [],
-      prenom: ""
+      prenom: "",
     };
   },
   computed: {

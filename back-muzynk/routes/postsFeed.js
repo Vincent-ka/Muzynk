@@ -16,7 +16,7 @@ router.post("/", async (req, res, next) => {
   // GET
 router.get("/", async (req, res, next) => {
     try {
-      const postsFeed = await PostFeedModel.find().sort({date_published: -1})
+      const postsFeed = await PostFeedModel.find()
       .populate("id_tags");
       res.json(postsFeed);
     } catch (err) {

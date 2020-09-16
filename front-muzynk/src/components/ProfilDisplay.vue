@@ -1,7 +1,9 @@
 <template>
   <section class="sectionNom">
     <article>
-      <div></div>
+      <figure>
+        <img class="displayImg" :src="currentUser.avatar" alt="avatar de l'utilisateur connecté">
+      </figure>
       <p>{{ this.firstname }} {{ this.lastname }}</p>
     </article>
   </section>
@@ -61,17 +63,20 @@ export default {
     align-items: center;
 }
 
-.sectionNom >article>div {
-    width: 200px;
-    height: 200px;
-    border: 1px solid black;
-    border-radius: 50%;
-    margin-top: 30%;
+.sectionNom >article>figure {
+    margin-top: 40%;
+    margin-left: 10px;
+}
+
+.displayImg {
+  width: 100%;
+  border-radius: 50%;
 }
 
 .sectionNom >article>p {
-    margin-top: 50px;
+    margin-top: 30px;
     font-weight: bold;
     font-size: 25px;
+    text-align: center;
 }
 </style>

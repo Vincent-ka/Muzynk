@@ -8,6 +8,7 @@ const postForumSchema = new Schema({
     },
     content: String,
     prenom: String,
+    avatar: String,
     date_published: Date,
     date_modified: Date
 });

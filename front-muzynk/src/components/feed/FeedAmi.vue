@@ -1,12 +1,15 @@
 <template>
   <section class="sectionFeedAmi">
     <div class="amiInfos">
-      <div class="amiInfosPhoto"></div>
+      <figure>
+      <img class="displayImgAmi" :src="this.avatar" alt="avatar de l'utilisateur connecté">
+      </figure>
       <p>{{this.prenom}} {{this.nom}}</p>
     </div>
     <article>
       <div class="feedamibox">
-        <p class="post" v-for="(post, index) in id_postsFeed" :key="index">{{post.content}}</p>
+        <p class="emptyFeedAmi" v-if="this.id_postsFeed.length === 0">Votre ami n'a encore rien posté dans son fil d'actualité.</p>
+        <p class="post" v-for="(post, index) in id_postsFeed.slice().reverse()" :key="index">{{post.content}}</p>
       </div>
     </article>
   </section>
@@ -20,7 +23,8 @@ export default {
       id_postsFeed: [],
       fil: "",
       prenom: "",
-      nom: ""
+      nom: "",
+      avatar: ""
     };
   },
   methods: {
@@ -31,7 +35,8 @@ export default {
       );
       this.fil = apiRes.data.fil;
       this.prenom = apiRes.data.firstname;
-      this.nom = apiRes.data.lastname
+      this.nom = apiRes.data.lastname;
+      this.avatar = apiRes.data.avatar
       this.getFeedAmi();
     },
     // Fonction pour récuperer le feed de l'ami cliqué
@@ -106,5 +111,19 @@ export default {
   background: white;
   overflow-y: auto;
   border: 2px solid black;
+}
+.emptyFeedAmi {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 20px;
+}
+.amiInfos>figure {
+    margin-top: 40%;
+    margin-left: 10px;
+}
+.displayImgAmi {
+  width: 90%;
+  border-radius: 50%;
 }
 </style>

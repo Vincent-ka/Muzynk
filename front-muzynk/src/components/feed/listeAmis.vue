@@ -3,6 +3,7 @@
     <h1>Liste des amis</h1>
     <article>
       <p class="consigne-ami">Cliquez sur le nom d'un ami afin de voir son fil d'actualité</p>
+      <p class="emptyListeAmis" v-if="this.amisId == '' ">Vous êtes sans amis</p>
       <ul class="amisListe">
         <li v-for="(ami, index) in amisNoms" :key="index">
           <router-link :to="'/feedAmi/' + ami.id" class="lien-ami">{{ami.prenom}} {{ami.nom}}</router-link>
