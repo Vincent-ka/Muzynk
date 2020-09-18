@@ -11,8 +11,14 @@
             </router-link>
             <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link>
           </div>
-          <p class="contenuMessage">{{post.content}}</p>
+          <div class="contenuMessage">
+          <p >{{post.content}}</p>
+          <p class="date-supp">
+          <span class="date-post-forum">{{ moment(post.date_published).format('lll') }}</span>
           <span class="supp-post" @click="deleteMessage(post._id)" v-if="currentUser._id === post.id_author || currentUser.role === 'admin'">x</span>
+          </p>
+          
+          </div>
         </div>
       </div>
       <form class="sujetform" @submit.prevent="postContent">
@@ -32,6 +38,7 @@ export default {
       id_postsForum: [],
       prenom: "",
       avatar: "",
+      date_published: ""
     };
   },
   computed: {
@@ -57,6 +64,7 @@ export default {
           id_author: this.currentUser._id,
           prenom: this.currentUser.firstname,
           avatar: this.currentUser.avatar,
+          date_published: Date.now()
         }
       );
       this.content = "";
@@ -199,12 +207,18 @@ export default {
 .contenuMessage {
   width: 80%;
   background: #b1c1c0;
-  text-align: center;
-  padding: 3px;
+  padding: 10px;
 }
 .supp-post {
-    float: right;
+    
     background: #B1C1C0;
     cursor: pointer;
+    padding: 5px;
+  }
+  .date-post-forum {
+    font-size: 10px;
+  }
+  .date-supp {
+    float: right;
   }
 </style>

@@ -19,6 +19,7 @@ export default {
     return {
       firstname: "",
       lastname: "",
+      idFriend: "",
       friendlist: []
     };
   },
@@ -35,6 +36,7 @@ export default {
       );
       this.firstname = apiRes.data.firstname;
       this.lastname = apiRes.data.lastname;
+      this.idFriend = apiRes.data._id
     },
     async getUserConnected() {
       const apiRes = await axios.get(
@@ -43,6 +45,10 @@ export default {
       this.friendlist = apiRes.data.friendlist;
     },
     async addFriend() {
+      if (this.currentUser._id === this.idFriend) {
+        alert("Vous ne pouvez pas vous ajouter en ami");
+        this.$router.push("/forum")
+      } else if (!this.friendlist.includes(this.idFriend)) {
       this.friendlist.push(this.$route.params.id);
       const { friendlist } = this.$data;
       try {
@@ -53,9 +59,13 @@ export default {
           }
         );
         console.log(apiRes);
-        this.$router.push("/forum")
+        this.$router.push("/feedAmi/" + this.idFriend)
       } catch (apiErr) {
         console.error(apiErr);
+      }
+      } else {
+        alert("Vous êtes déjà ami avec " + this.firstname + " " + this.lastname)
+        this.$router.push("/forum")
       }
     }
   },

@@ -9,7 +9,9 @@
     <article>
       <div class="feedamibox">
         <p class="emptyFeedAmi" v-if="this.id_postsFeed.length === 0">Votre ami n'a encore rien posté dans son fil d'actualité.</p>
-        <p class="post" v-for="(post, index) in id_postsFeed.slice().reverse()" :key="index">{{post.content}}</p>
+        <p class="post" v-for="(post, index) in id_postsFeed.slice().reverse()" :key="index">{{post.content}}
+          <span class="supp-sujet" @click="deletePost(post._id)" v-if="currentUser.role === 'admin'">x</span>
+        </p>
       </div>
     </article>
   </section>
@@ -26,6 +28,13 @@ export default {
       nom: "",
       avatar: ""
     };
+  },
+  computed: {
+    // Recuperer le user connecté
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
+      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+    }
   },
   methods: {
     // Fonction pour recuprer l'ami sur lequel on a cliqué
@@ -45,7 +54,16 @@ export default {
         process.env.VUE_APP_BACKEND_URL + "/feeds/" + this.fil
       );
       this.id_postsFeed = apiRes.data.id_postsFeed;
-    }
+    },
+    // Supprimer a post du feed d'un utilisateur en tant qu'admin
+    async deletePost(id) {
+      if (confirm("Etes vous sûr de bien vouloir supprimer le post ?")) {
+        await axios.delete(
+          process.env.VUE_APP_BACKEND_URL + "/postsFeed/" + id
+        );
+        this.getFeedAmi()
+      }
+    },
   },
   created() {
     try {

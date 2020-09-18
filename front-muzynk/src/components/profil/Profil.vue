@@ -1,9 +1,8 @@
 <template>
   <section class="sectionProfil">
     <article>
-      <!-- <p>Hello {{ currentUser.firstname }}</p> -->
       <form action="#" class="form-profil" @submit.prevent="patchUser">
-        <h3>Mettre à jour votre profil</h3>
+        <h3>Bonjour {{this.currentUser.firstname}}. Voulez vous mettre votre profil à jour ?</h3>
         <label for="input-firstname" class="is-clickable">Prénom</label>
         <input id="input-firstname" type="text" class="input" name="firstname" value="" v-model="firstname" />
 
@@ -18,7 +17,7 @@
 
     <article>
       <form action="#" class="form-profil">
-        <h3>Mettre a jour votre mdp</h3>
+        <h3>Mettre a jour votre mot de passe</h3>
         <label for="input-oldpassword" class="is-clickable">Ancien mot de passe</label>
         <input
           id="input-oldpassword"
@@ -171,6 +170,7 @@ export default {
   border: 2px solid #4f7f88;
   border-radius: 10px;
   background: #7D928D;
+  max-width: 300px;
 }
 
 .form-profil .label {
@@ -221,5 +221,8 @@ export default {
 }
 .gerer-profil:hover {
   background: #7D928D;
+}
+form>h3 {
+  margin-bottom: 10px;
 }
 </style>

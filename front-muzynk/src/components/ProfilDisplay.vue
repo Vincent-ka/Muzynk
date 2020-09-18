@@ -4,7 +4,9 @@
       <figure>
         <img class="displayImg" :src="currentUser.avatar" alt="avatar de l'utilisateur connecté">
       </figure>
+      <router-link to="/profil" class="display-lien-profil">
       <p>{{ this.firstname }} {{ this.lastname }}</p>
+      </router-link>
     </article>
   </section>
 </template>
@@ -73,10 +75,12 @@ export default {
   border-radius: 50%;
 }
 
-.sectionNom >article>p {
+.sectionNom >article>.display-lien-profil {
     margin-top: 30px;
     font-weight: bold;
     font-size: 25px;
     text-align: center;
+    text-decoration: none;
+    color: black;
 }
 </style>
