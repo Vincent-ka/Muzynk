@@ -16,24 +16,25 @@
     </article>
 
     <article>
-      <form action="#" class="form-profil">
+      <form action="#" class="form-profil" @submit.prevent="patchPassword">
         <h3>Mettre a jour votre mot de passe</h3>
-        <label for="input-oldpassword" class="is-clickable">Ancien mot de passe</label>
+        <!-- <label for="input-oldpassword" class="is-clickable">Ancien mot de passe</label>
         <input
           id="input-oldpassword"
           type="password"
           class="input"
           name="oldpassword"
           autocomplete="on"
-        />
+        /> -->
 
         <label for="input-newpassword" class="is-clickable">Nouveau mot de passe</label>
         <input
           id="input-newpassword"
           type="password"
           class="input"
-          name="newpassword"
+          name="password"
           autocomplete="on"
+          v-model="password"
         />
         <button class="btn">ok</button>
       </form>
@@ -55,6 +56,7 @@ export default {
       firstname: "",
       lastname: "",
       email: "",
+      password: ""
     };
   },
   computed: {
@@ -89,6 +91,25 @@ export default {
       }
       alert("Les informations ont bien été changées");
     },
+
+    async patchPassword() {
+      const { password } = this.$data;
+      try {
+        const apiRes = await axios.patch(
+          process.env.VUE_APP_BACKEND_URL + "/users/password/" + this.currentUser._id,
+          {
+            password
+          }
+        );
+        console.log(apiRes);
+      } catch (apiErr) {
+        console.error(apiErr);
+      }
+      alert("Le mot de passe bien été changées");
+    },
+
+
+
     async deleteUser() {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre compte ?")) {
         await axios.delete(

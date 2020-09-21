@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const UserModel = require("./../models/User");
 const auth = require("./../auth/index");
+const bcrypt = require("bcrypt");
 
 // POST
 router.post("/", async (req, res, next) => {
@@ -57,6 +58,25 @@ router.patch("/:id", async (req, res, next) => {
     next(err)
   }
 })
+
+router.patch("/password/:id", auth.authenticate, async (req, res, next) => {
+  var user = {
+    ...req.body
+  };
+  try {
+    // var password = req.body.password;
+    const newPassword = await bcrypt.hash(user.password, 10);
+    user.password = newPassword;
+    const updateUser = await UserModel.findByIdAndUpdate(req.params.id, user, {
+      new: true
+    }); //pour récuperer le doc mis à jour
+    res.json(updateUser);
+  } catch (err) {
+    console.log(err)
+    next(err)
+  }
+
+});
 
 
 module.exports = router;

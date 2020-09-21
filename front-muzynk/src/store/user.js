@@ -95,7 +95,7 @@ export default {
     },
     async update(context, userInfos) {
       return new Promise((resolve, reject) => {
-        handler
+        axios
           .patch(`/users/${userInfos._id}`, userInfos)
           .then(res => {
             context.commit("setCurrent", res.data);
