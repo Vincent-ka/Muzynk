@@ -107,6 +107,17 @@ export default {
             reject(err);
           });
       });
-    }
+    },
+    async updateAvatar(context, avatarFile) {
+      try {
+        const updatedUser = await axios.patch(
+          `/users/${context.getters.current._id}/avatar`,
+          avatarFile
+        );
+        context.commit("setCurrent", updatedUser.data);
+      } catch (err) {
+        console.error(err);
+      }
+    },
   }
 };

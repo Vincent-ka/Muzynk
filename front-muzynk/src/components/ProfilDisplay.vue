@@ -66,12 +66,14 @@ export default {
 }
 
 .sectionNom >article>figure {
-    margin-top: 40%;
+    margin-top: 35%;
     margin-left: 10px;
+    text-align: center;
 }
 
 .displayImg {
-  width: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
 }
 

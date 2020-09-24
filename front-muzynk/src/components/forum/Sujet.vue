@@ -6,18 +6,25 @@
           <div class="sujetAuteur">
             <router-link :to="'/ajout-amis/' + post.id_author">
               <figure class="author-photo">
-                <img class="postDisplayImg" :src="post.avatar" alt="avatar de l'utilisateur ayant posté le post">
+                <img
+                  class="postDisplayImg"
+                  :src="post.avatar"
+                  alt="avatar de l'utilisateur ayant posté le post"
+                />
               </figure>
             </router-link>
             <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link>
           </div>
           <div class="contenuMessage">
-          <p >{{post.content}}</p>
-          <p class="date-supp">
-          <span class="date-post-forum">{{ moment(post.date_published).format('lll') }}</span>
-          <span class="supp-post" @click="deleteMessage(post._id)" v-if="currentUser._id === post.id_author || currentUser.role === 'admin'">x</span>
-          </p>
-          
+            <p>{{post.content}}</p>
+            <p class="date-supp">
+              <span class="date-post-forum">{{ moment(post.date_published).format('lll') }}</span>
+              <span
+                class="supp-post"
+                @click="deleteMessage(post._id)"
+                v-if="currentUser._id === post.id_author || currentUser.role === 'admin'"
+              >x</span>
+            </p>
           </div>
         </div>
       </div>
@@ -94,9 +101,9 @@ export default {
         await axios.delete(
           process.env.VUE_APP_BACKEND_URL + "/postsForum/" + id
         );
-        this.getSubject()
+        this.getSubject();
       }
-    },
+    }
   },
   created() {
     try {
@@ -121,7 +128,7 @@ export default {
     margin: auto;
   }
   .postDisplayImg {
-    width: 90%;
+    width: 80%;
     border-radius: 50%;
   }
 }
@@ -138,7 +145,7 @@ export default {
     margin: auto;
   }
   .postDisplayImg {
-    width: 50%;
+    width: 40%;
     border-radius: 50%;
   }
 }
@@ -210,15 +217,14 @@ export default {
   padding: 10px;
 }
 .supp-post {
-    
-    background: #B1C1C0;
-    cursor: pointer;
-    padding: 5px;
-  }
-  .date-post-forum {
-    font-size: 10px;
-  }
-  .date-supp {
-    float: right;
-  }
+  background: #b1c1c0;
+  cursor: pointer;
+  padding: 5px;
+}
+.date-post-forum {
+  font-size: 10px;
+}
+.date-supp {
+  float: right;
+}
 </style>

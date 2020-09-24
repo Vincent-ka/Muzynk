@@ -4,13 +4,30 @@
       <form action="#" class="form-profil" @submit.prevent="patchUser">
         <h3>Bonjour {{this.currentUser.firstname}}. Voulez vous mettre votre profil à jour ?</h3>
         <label for="input-firstname" class="is-clickable">Prénom</label>
-        <input id="input-firstname" type="text" class="input" name="firstname" value="" v-model="firstname" />
+        <input
+          id="input-firstname"
+          type="text"
+          class="input"
+          name="firstname"
+          value
+          v-model="firstname"
+        />
 
         <label for="input-lastname" class="is-clickable">Nom de famille</label>
         <input id="input-lastname" type="text" class="input" name="lastname" v-model="lastname" />
 
         <label for="input-email" class="is-clickable">Email</label>
         <input id="input-email" type="email" class="input" name="email" v-model="email" />
+
+        <label for="input-avatar" class="is-clickable">Avatar</label>
+        <input
+          id="input-avatar"
+          type="file"
+          class="input-file"
+          name="avatar"
+          @change="handleAvatar"
+          accept="image/*"
+        />
         <button class="btn">ok</button>
       </form>
     </article>
@@ -25,7 +42,7 @@
           class="input"
           name="oldpassword"
           autocomplete="on"
-        /> -->
+        />-->
 
         <label for="input-newpassword" class="is-clickable">Nouveau mot de passe</label>
         <input
@@ -56,12 +73,13 @@ export default {
       firstname: "",
       lastname: "",
       email: "",
-      password: ""
+      password: "",
+      tmpURL: null
     };
   },
   computed: {
     currentUser() {
-      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
+      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
       return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
     }
   },
@@ -70,9 +88,9 @@ export default {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
-      this.firstname = apiRes.data.firstname
-      this.lastname = apiRes.data.lastname
-      this.email = apiRes.data.email
+      this.firstname = apiRes.data.firstname;
+      this.lastname = apiRes.data.lastname;
+      this.email = apiRes.data.email;
     },
     async patchUser() {
       const { firstname, lastname, email } = this.$data;
@@ -96,7 +114,9 @@ export default {
       const { password } = this.$data;
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/users/password/" + this.currentUser._id,
+          process.env.VUE_APP_BACKEND_URL +
+            "/users/password/" +
+            this.currentUser._id,
           {
             password
           }
@@ -108,14 +128,21 @@ export default {
       alert("Le mot de passe bien été changées");
     },
 
+    handleAvatar(e) {
+      const fileObject = e.target.files[0];
+      this.tmpURL = URL.createObjectURL(fileObject);
 
+      const fd = new FormData();
+      fd.append("avatar", fileObject);
+      this.$store.dispatch("user/updateAvatar", fd);
+    },
 
     async deleteUser() {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre compte ?")) {
         await axios.delete(
           process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
         );
-        this.signout()
+        this.signout();
       }
     },
     signout() {
@@ -190,7 +217,7 @@ export default {
   padding: 20px;
   border: 2px solid #4f7f88;
   border-radius: 10px;
-  background: #7D928D;
+  background: #7d928d;
   max-width: 300px;
 }
 
@@ -241,9 +268,13 @@ export default {
   cursor: pointer;
 }
 .gerer-profil:hover {
-  background: #7D928D;
+  background: #7d928d;
 }
-form>h3 {
+form > h3 {
   margin-bottom: 10px;
+}
+.input-file {
+  margin-top: 5px;
+  margin-bottom: 15px;
 }
 </style>

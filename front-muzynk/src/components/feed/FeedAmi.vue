@@ -112,7 +112,7 @@ export default {
     margin-top: 30%;
   }
   .amiInfos > p {
-    margin-top: 50px;
+    
     font-weight: bold;
     font-size: 25px;
   }
@@ -137,11 +137,13 @@ export default {
   padding: 20px;
 }
 .amiInfos>figure {
-    margin-top: 40%;
+    margin-top: 30%;
     margin-left: 10px;
+    text-align: center;
 }
 .displayImgAmi {
-  width: 90%;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
 }
 </style>
