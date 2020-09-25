@@ -16,7 +16,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .main-dashboard {
     height: 84vh;
     background: #426859;

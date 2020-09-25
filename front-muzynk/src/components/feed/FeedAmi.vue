@@ -10,7 +10,7 @@
       <div class="feedamibox">
         <p class="emptyFeedAmi" v-if="this.id_postsFeed.length === 0">Votre ami n'a encore rien posté dans son fil d'actualité.</p>
         <p class="post" v-for="(post, index) in id_postsFeed.slice().reverse()" :key="index">{{post.content}}
-          <span class="supp-sujet" @click="deletePost(post._id)" v-if="currentUser.role === 'admin'">x</span>
+          <span class="supp-postFeedAmi" @click="deletePost(post._id)" v-if="currentUser.role === 'admin'">x</span>
         </p>
       </div>
     </article>
@@ -76,7 +76,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @media screen and (min-width: 320px) and (max-width: 979px) {
   .sectionFeedAmi {
     height: 100%;
@@ -145,5 +145,15 @@ export default {
   width: 80%;
   height: 80%;
   border-radius: 50%;
+}
+.post {
+  border-bottom: 1px solid;
+  width: 100%;
+  background: #B1C1C0;
+  padding: 20px;
+}
+.supp-postFeedAmi {
+  float: right;
+  cursor: pointer;
 }
 </style>

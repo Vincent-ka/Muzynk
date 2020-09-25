@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main-listamis {
   height: 84vh;
   background: #426859;

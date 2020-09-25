@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .main-notfound {
   height: 84vh;
   background: #426859;

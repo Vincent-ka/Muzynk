@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .main-sujet {
     height: 84vh;
     background: #426859;

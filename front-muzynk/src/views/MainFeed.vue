@@ -19,7 +19,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main-feed {
   height: 84vh;
   background: #426859;

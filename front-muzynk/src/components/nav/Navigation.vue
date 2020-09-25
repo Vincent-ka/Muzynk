@@ -20,7 +20,10 @@
             <img src="./../../assets/profil.png" alt="picto du profil" />
             <router-link to="/profil">Profil</router-link>
           </li>
-          <li v-if="currentUser && currentUser.role === 'admin'" class="dashboard lien-opa ">
+          <li
+            v-if="currentUser && currentUser.role === 'admin'"
+            class="dashboard lien-opa "
+          >
             <img src="./../../assets/profil.png" alt="picto du profil" />
             <router-link to="/dashboard">Dashboard</router-link>
           </li>
@@ -35,7 +38,7 @@ export default {
   data() {
     return {
       isActive: false
-    }
+    };
   },
   computed: {
     currentUser() {
@@ -45,27 +48,23 @@ export default {
   },
   methods: {
     closeNav() {
-      this.isActive = !this.isActive
+      this.isActive = !this.isActive;
     }
   },
   beforeMount() {
     this.$ebus.$on("toggle-nav", () => {
-      this.isActive = !this.isActive
-    })
+      this.isActive = !this.isActive;
+    });
   }
 };
 </script>
 
-<style>
-@media screen and (max-width: 320px) {
-}
-
+<style scoped>
 @media screen and (min-width: 320px) and (max-width: 979px) {
-
-.sectionNavigation {
-  width: 0%;
-  height: 100%;
-}
+  .sectionNavigation {
+    width: 0%;
+    height: 100%;
+  }
 
   #navigation {
     padding: 50px;
@@ -83,7 +82,7 @@ export default {
   }
 
   #navigation.is-active {
-    right: 0%
+    right: 0%;
   }
 
   #closeNavigation {
@@ -125,12 +124,10 @@ export default {
   }
 
   .sectionNavigation {
-  width: 20%;
-  height: 100%;
+    width: 20%;
+    height: 100%;
+  }
 }
-}
-
-
 
 .sectionNavigation a {
   text-decoration: none;
@@ -158,11 +155,14 @@ export default {
   margin-left: 15px;
 }
 
-.forum > img, .feed > img, .chat > img {
+.forum > img,
+.feed > img,
+.chat > img {
   width: 30px;
 }
 
-.profil > img, .dashboard > img {
+.profil > img,
+.dashboard > img {
   width: 20px;
 }
 
