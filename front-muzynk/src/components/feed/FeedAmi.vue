@@ -1,16 +1,32 @@
 <template>
-  <section class="sectionFeedAmi">
-    <div class="amiInfos">
+  <section class="sectionFriendFeed">
+    <div class="friendInfos">
       <figure>
-      <img class="displayImgAmi" :src="this.avatar" alt="avatar de l'utilisateur connecté">
+        <img
+          class="displayImgFriend"
+          :src="this.avatar"
+          alt="avatar de l'utilisateur connecté"
+        />
       </figure>
-      <p>{{this.prenom}} {{this.nom}}</p>
+      <p>{{ this.prenom }} {{ this.nom }}</p>
     </div>
     <article>
-      <div class="feedamibox">
-        <p class="emptyFeedAmi" v-if="this.id_postsFeed.length === 0">Votre ami n'a encore rien posté dans son fil d'actualité.</p>
-        <p class="post" v-for="(post, index) in id_postsFeed.slice().reverse()" :key="index">{{post.content}}
-          <span class="supp-postFeedAmi" @click="deletePost(post._id)" v-if="currentUser.role === 'admin'">x</span>
+      <div class="feedFriendBox">
+        <p class="emptyFeedFriend" v-if="this.id_postsFeed.length === 0">
+          Votre ami n'a encore rien posté dans son fil d'actualité.
+        </p>
+        <p
+          class="post"
+          v-for="(post, index) in id_postsFeed.slice().reverse()"
+          :key="index"
+        >
+          {{ post.content }}
+          <span
+            class="delete-postFeedFriend"
+            @click="deletePost(post._id)"
+            v-if="currentUser.role === 'admin'"
+            >x</span
+          >
         </p>
       </div>
     </article>
@@ -30,14 +46,14 @@ export default {
     };
   },
   computed: {
-    // Recuperer le user connecté
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
-    // Fonction pour recuprer l'ami sur lequel on a cliqué
+    // Function to get the friend
     async getAmi() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id
@@ -45,30 +61,29 @@ export default {
       this.fil = apiRes.data.fil;
       this.prenom = apiRes.data.firstname;
       this.nom = apiRes.data.lastname;
-      this.avatar = apiRes.data.avatar
+      this.avatar = apiRes.data.avatar;
       this.getFeedAmi();
     },
-    // Fonction pour récuperer le feed de l'ami cliqué
+    // Functio nto get the friend's feed
     async getFeedAmi() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/feeds/" + this.fil
       );
       this.id_postsFeed = apiRes.data.id_postsFeed;
     },
-    // Supprimer a post du feed d'un utilisateur en tant qu'admin
+    // Delete the post of the user
     async deletePost(id) {
       if (confirm("Etes vous sûr de bien vouloir supprimer le post ?")) {
         await axios.delete(
           process.env.VUE_APP_BACKEND_URL + "/postsFeed/" + id
         );
-        this.getFeedAmi()
+        this.getFeedAmi();
       }
-    },
+    }
   },
   created() {
     try {
       this.getAmi();
-      // this.getFeed();
     } catch (err) {
       console.error(err);
     }
@@ -78,51 +93,43 @@ export default {
 
 <style scoped>
 @media screen and (min-width: 320px) and (max-width: 979px) {
-  .sectionFeedAmi {
+  .sectionFriendFeed {
     height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .amiInfos {
+  .friendInfos {
     display: none;
   }
 }
 @media screen and (min-width: 980px) {
-  .sectionFeedAmi {
+  .sectionFriendFeed {
     width: 80%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .amiInfos {
+  .friendInfos {
     width: 30%;
     height: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  .amiInfosPhoto {
-    width: 200px;
-    height: 200px;
-    border: 1px solid black;
-    border-radius: 50%;
-    margin-top: 30%;
-  }
-  .amiInfos > p {
-    
+  .friendInfos > p {
     font-weight: bold;
     font-size: 25px;
   }
 }
-.sectionFeedAmi > article {
+.sectionFriendFeed > article {
   width: 90%;
   height: 90%;
   position: relative;
 }
-.feedamibox {
+.feedFriendBox {
   background: red;
   width: 100%;
   height: 100%;
@@ -130,18 +137,18 @@ export default {
   overflow-y: auto;
   border: 2px solid black;
 }
-.emptyFeedAmi {
+.emptyFeedFriend {
   text-align: center;
   font-weight: bold;
   font-size: 20px;
   padding: 20px;
 }
-.amiInfos>figure {
-    margin-top: 30%;
-    margin-left: 10px;
-    text-align: center;
+.friendInfos > figure {
+  margin-top: 30%;
+  margin-left: 10px;
+  text-align: center;
 }
-.displayImgAmi {
+.displayImgFriend {
   width: 80%;
   height: 80%;
   border-radius: 50%;
@@ -149,10 +156,10 @@ export default {
 .post {
   border-bottom: 1px solid;
   width: 100%;
-  background: #B1C1C0;
+  background: #b1c1c0;
   padding: 20px;
 }
-.supp-postFeedAmi {
+.delete-postFeedFriend {
   float: right;
   cursor: pointer;
 }

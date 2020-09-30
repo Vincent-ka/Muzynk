@@ -1,7 +1,7 @@
 <template>
-  <section class="sectionAjoutAmis">
+  <section class="sectionAddFriends">
     <article>
-      <p class="demande">Voulez vous ajouter {{this.firstname}} {{this.lastname}} en amis ?</p>
+      <p class="request">Voulez vous ajouter {{this.firstname}} {{this.lastname}} en amis ?</p>
       <div>
       <button @click="addFriend" class="btn">oui</button>
       <button class="btn">
@@ -24,12 +24,14 @@ export default {
     };
   },
   computed: {
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
+    // Function to get the user we want to add as a friend
     async getUser() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id
@@ -38,12 +40,14 @@ export default {
       this.lastname = apiRes.data.lastname;
       this.idFriend = apiRes.data._id
     },
+    // Function to get the current user's friendlist
     async getUserConnected() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
       this.friendlist = apiRes.data.friendlist;
     },
+    // Function to add the user in the friendlist
     async addFriend() {
       if (this.currentUser._id === this.idFriend) {
         alert("Vous ne pouvez pas vous ajouter en ami");
@@ -82,12 +86,12 @@ export default {
 
 <style scoped>
 @media screen and (min-width: 320px) and (max-width: 979px) {
-    .sectionAjoutAmis {
+    .sectionAddFriends {
     height: 100%;
     width: 100%;
   }
 
-  .sectionAjoutAmis > article {
+  .sectionAddFriends > article {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,14 +100,14 @@ export default {
   }
 }
 @media screen and (min-width: 980px) {
-.sectionAjoutAmis {
+.sectionAddFriends {
     display: flex;
     justify-content: space-around;
     width: 80%;
     height: 100%;
 }
 
-.sectionAjoutAmis > article {
+.sectionAddFriends > article {
     width: 100%;
     height: 100%;
     display: flex;
@@ -127,7 +131,7 @@ export default {
   text-decoration: none;
 }
 
-.demande {
+.request {
     margin-bottom: 20px;
     font-size: 25px;
     text-align: center;

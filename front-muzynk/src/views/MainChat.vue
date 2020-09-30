@@ -1,5 +1,5 @@
 <template>
-  <div class="main-amis">
+  <div class="main-chat">
       <Amis />
       <Navigation />
   </div>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped>
-.main-amis {
+.main-chat {
   height: 84vh;
   background: #426859;
   display: flex;

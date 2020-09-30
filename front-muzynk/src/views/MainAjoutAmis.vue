@@ -1,5 +1,5 @@
 <template>
-  <main class="main-ajoutAmis">
+  <main class="main-addFriends">
       <AjoutAmis />
       <Navigation />
   </main>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped>
-.main-ajoutAmis {
+.main-addFriends {
   height: 84vh;
   background: #426859;
   display: flex;

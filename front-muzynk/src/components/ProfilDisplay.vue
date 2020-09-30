@@ -1,5 +1,5 @@
 <template>
-  <section class="sectionNom">
+  <section class="sectionName">
     <article>
       <figure>
         <img class="displayImg" :src="currentUser.avatar" alt="avatar de l'utilisateur connecté">
@@ -21,12 +21,14 @@ export default {
     }
   },
   computed: {
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
+    // Function to get the connected user
     async getUser() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
@@ -47,17 +49,17 @@ export default {
 
 <style scoped>
 @media screen and (min-width:320px) and (max-width:979px) {
-    .sectionNom {
+    .sectionName {
         display: none;
     }
 }
 
-.sectionNom {
+.sectionName {
     width: 20%;
     height: 100%;
 }
 
-.sectionNom >article {
+.sectionName >article {
     width: 100%;
     height: 100%;
     display: flex;
@@ -65,7 +67,7 @@ export default {
     align-items: center;
 }
 
-.sectionNom >article>figure {
+.sectionName >article>figure {
     margin-top: 35%;
     margin-left: 10px;
     text-align: center;
@@ -77,7 +79,7 @@ export default {
   border-radius: 50%;
 }
 
-.sectionNom >article>.display-lien-profil {
+.sectionName >article>.display-lien-profil {
     margin-top: 30px;
     font-weight: bold;
     font-size: 25px;

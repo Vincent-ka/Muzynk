@@ -1,6 +1,6 @@
 <template>
   <main class="main-log">
-    <h1 class="titreGeneral">Bienvenue sur Muzynk</h1>
+    <h1 class="mainTitle">Bienvenue sur Muzynk</h1>
     <p
       class="presentation-media"
     >Vous êtes passionné de musique et souhaitez échanger avec des personnes ayant le même intérêt ? Vous ête au bon endroit</p>
@@ -79,9 +79,10 @@ export default {
     };
   },
   methods: {
-    updateAvatar(image) {
-      console.log(image);
-    },
+    // updateAvatar(image) {
+    //   console.log(image);
+    // },
+    // Function to signup
     signup() {
       const fd = new FormData(); // form data nécessaire pour envoyer des fichiers images (files)
       fd.append("firstname", this.user.firstname);
@@ -95,6 +96,7 @@ export default {
       this.user.email = "";
       this.user.password = "";
     },
+    // Function to signin
     signin() {
       this.$store
         .dispatch("user/signin", {
@@ -138,7 +140,7 @@ export default {
     margin-bottom: 15px;
   }
 
-  .titreGeneral {
+  .mainTitle {
     text-align: center;
   }
 }
@@ -175,7 +177,7 @@ export default {
     display: none;
   }
 
-  .titreGeneral {
+  .mainTitle {
     display: none;
   }
 }

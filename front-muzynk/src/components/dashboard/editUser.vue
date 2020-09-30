@@ -45,14 +45,14 @@ export default {
     };
   },
   methods: {
-    //Fonction pour afficher les détails de l'user selectioné
+    // Function to display the informations of the user 
     async getUser() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id
       );
       this.role = apiRes.data.role;
     },
-    // Fonction pour modifier les informations de l'utilisateur
+    // Function to edit the informations of the users
     async patchUser() {
       const { role } = this.$data;
       try {

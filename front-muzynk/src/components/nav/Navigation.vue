@@ -4,25 +4,25 @@
       <nav id="navigation" :class="isActive && 'is-active'">
         <ul>
           <li id="closeNavigation" @click="closeNav">X</li>
-          <li class="forum lien-opa">
+          <li class="forum lien">
             <img src="./../../assets/accueil.png" alt="picto de l'accueil" />
             <router-link to="/forum">Forum</router-link>
           </li>
-          <li class="feed lien-opa">
+          <li class="feed lien">
             <img src="./../../assets/feed.png" alt="picto du feed" />
             <router-link to="/feed">Feed</router-link>
           </li>
-          <li class="chat lien-opa">
+          <li class="chat lien">
             <img src="./../../assets/chat.png" alt="picto du chat" />
             <router-link to="/chat">Chat</router-link>
           </li>
-          <li class="profil lien-opa dashboard">
+          <li class="profil lien dashboard">
             <img src="./../../assets/profil.png" alt="picto du profil" />
             <router-link to="/profil">Profil</router-link>
           </li>
           <li
             v-if="currentUser && currentUser.role === 'admin'"
-            class="dashboard lien-opa "
+            class="dashboard lien"
           >
             <img src="./../../assets/profil.png" alt="picto du profil" />
             <router-link to="/dashboard">Dashboard</router-link>
@@ -41,12 +41,14 @@ export default {
     };
   },
   computed: {
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
+    // Function to close the navigation
     closeNav() {
       this.isActive = !this.isActive;
     }

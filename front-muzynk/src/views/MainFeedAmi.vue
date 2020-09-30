@@ -1,5 +1,5 @@
 <template>
-  <main class="main-feedami">
+  <main class="main-feedFriend">
       <FeedAmi />
       <Navigation />
   </main>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped>
-.main-feedami {
+.main-feedFriend {
   height: 84vh;
   background: #426859;
   display: flex;

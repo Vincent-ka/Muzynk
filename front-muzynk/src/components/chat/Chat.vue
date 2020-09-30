@@ -1,8 +1,8 @@
 <template>
-  <section class="sectionAmis">
+  <section class="sectionFriends">
     <article>
       <!-- <h2 class="chat-title">Chat</h2> -->
-      <div class="chatbox" >
+      <div class="chatbox">
         <p v-for="(msg, index) in messages" :key="index">
           <span>{{ msg.user }}-</span>
           {{ msg.message }}
@@ -14,7 +14,7 @@
           <!-- <input type="text" v-model="user" /> -->
         </div>
         <div>
-          <input class="chat-input" type="text" v-model="message"/>
+          <input class="chat-input" type="text" v-model="message" />
         </div>
         <button type="submit" class="chat-submit">Send</button>
       </form>
@@ -32,7 +32,7 @@ export default {
       user: "",
       message: "",
       messages: [],
-      socket: io("localhost:3001"),
+      socket: io("localhost:3001")
     };
   },
   methods: {
@@ -49,9 +49,9 @@ export default {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/chats/5f4cb5308e9be0103428fb2b"
       );
-      this.id_postsFeed = apiRes.data.message
-      console.log(apiRes.data.message)
-    },
+      this.id_postsFeed = apiRes.data.message;
+      console.log(apiRes.data.message);
+    }
   },
   created() {
     try {
@@ -71,7 +71,7 @@ export default {
 
 <style scoped>
 @media screen and (min-width: 320px) and (max-width: 979px) {
-  .sectionAmis {
+  .sectionFriends {
     height: 100%;
     width: 100%;
     display: flex;
@@ -81,7 +81,7 @@ export default {
 }
 
 @media screen and (min-width: 980px) {
-  .sectionAmis {
+  .sectionFriends {
     width: 80%;
     height: 90%;
     display: flex;
@@ -90,7 +90,7 @@ export default {
   }
 }
 
-.sectionAmis > article {
+.sectionFriends > article {
   width: 90%;
   height: 90%;
   position: relative;
@@ -134,6 +134,6 @@ export default {
 }
 
 .chat-input {
-  margin-left: 10px
+  margin-left: 10px;
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="feedbox" >
         <p class="emptyFeed" v-if="this.id_postsFeed.length === 0">Votre fil d'actualité est vide. Essayez de poster votre premier message.</p>
         <p class="post" v-for="(post, index) in id_postsFeed.slice().reverse()" :key="index">
-          {{post.content}} <span class="supp-postFeed" @click="deletePost(post._id)">x</span>
+          {{post.content}} <span class="delete-postFeed" @click="deletePost(post._id)">x</span>
         </p>
       </div>
       <form class="feedform" @submit.prevent="postContent">
@@ -12,7 +12,7 @@
           <input class="feed-input" type="text" placeholder="poster du contenu" v-model="post"/>
         </div>
         <button type="submit" class="feed-submit">Send</button>
-        <router-link :to="'/listeAmis/'" class="lien-liste-amis">
+        <router-link :to="'/listeAmis/'" class="link-friendlist">
         <p>Feed ami</p>
         </router-link>
       </form>
@@ -31,21 +31,21 @@ export default {
     }
   },
   computed: {
-    // Recuperer le user connecté
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"];// Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
-     // Fonction pour faire apparaitre le feed de l'utilisateur
+     // Function to display the user's feed
     async getFeed() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/feeds/" + this.currentUser.fil
       );
       this.id_postsFeed = apiRes.data.id_postsFeed
     },
-    // Fonction pour checker si le user a un feed ou non
+    // Function to check if the user has a feed
     async checkFeed() {
       this.fil = this.currentUser.fil
       if (this.fil.length === 0) {
@@ -62,7 +62,7 @@ export default {
         this.getFeed()
       }
     },
-    // Fonction pour ajouter le feed créer chez le user
+    // Function to add the created feed to the user
     async patchUser(id) {
       this.fil.push(id);
       const { fil } = this.$data
@@ -78,7 +78,7 @@ export default {
         console.error(apiErr)
       }
     },
-    // Fonction pour poster un nouveau post 
+    // Function to post a new message 
     async postContent() {
       if (this.post.length != 0) {
       const apiRes = await axios.post(
@@ -91,7 +91,7 @@ export default {
       this.patchFeed(apiRes.data._id)
       }
     },
-    // Fonction pour ajouter le post posté dans le feed
+    // Function to add the posted message to the feed
     async patchFeed(id) {
       this.id_postsFeed.push(id);
       const { id_postsFeed } = this.$data;
@@ -108,6 +108,7 @@ export default {
       };
       this.getFeed()
     },
+    // Function to delete the message
     async deletePost(id) {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre post ?")) {
         await axios.delete(
@@ -117,11 +118,9 @@ export default {
       }
     },
   },
-  // Faire aparaitre le feed à la création de la page
   created() {
     try {
       this.checkFeed()
-      // this.getFeed();
     } catch (err) {
       console.error(err);
     }
@@ -140,7 +139,7 @@ export default {
   }
 }
 @media screen and (min-width: 320px) and (max-width: 350px) {
-  .lien-liste-amis > p {
+  .link-friendlist > p {
     font-size: 10px;
     padding: 5px;
   }
@@ -200,7 +199,7 @@ export default {
   background: #B1C1C0;
   padding: 20px;
 }
-.lien-liste-amis {
+.link-friendlist {
   text-decoration: none;
   color: black;
   border-left: 1px solid black;
@@ -208,7 +207,7 @@ export default {
   align-items: center;
   background: #7D928D;
 }
-.supp-postFeed {
+.delete-postFeed {
   float: right;
   cursor: pointer;
 }

@@ -2,10 +2,10 @@
   <section class="sectionForum">
     <article>
       <div class="forumbox">
-        <div class="postSujet" v-for="(sujet, index) in id_subjects.slice().reverse()" :key="index">
-          <h2 class="titre-sujet">
+        <div class="postTopic" v-for="(sujet, index) in id_subjects.slice().reverse()" :key="index">
+          <h2 class="topicTitle">
             <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">{{sujet.title}}</router-link>
-            <span class="supp-sujet" @click="deleteMessage(sujet._id)" v-if="currentUser._id === sujet.id_creator || currentUser.role === 'admin'">x</span>
+            <span class="delete-topic" @click="deleteMessage(sujet._id)" v-if="currentUser._id === sujet.id_creator || currentUser.role === 'admin'">x</span>
           </h2>
           <p class="creator-media"> Auteur : 
             <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator-media">{{sujet.prenom}}</router-link>
@@ -35,21 +35,21 @@ export default {
     };
   },
   computed: {
-    // REcuperer le user connecté
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"];// récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
-    // Recuperer le nom du user
+    // Function to get the user's name
     async getUser() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
       this.prenom = apiRes.data.firstname;
     },
-    // Fonction pour faire apparaitre le forum
+    // Function to display the forum
     async getForum() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/forums/5f3a7be4a9a37d200c17dddd"
@@ -57,7 +57,7 @@ export default {
       this.id_subjects = apiRes.data.id_subjects;
       console.log("lol", apiRes.data)
     },
-    // Fonction pour poster un nouveau sujet
+    // Function to post a new topic
     async postSubject() {
       if (this.title.length != 0) {
         const apiRes = await axios.post(
@@ -73,7 +73,7 @@ export default {
         this.patchForum(apiRes.data._id);
       }
     },
-    // Fonction pour modifier le forum et y ajouter le sujet posté
+    // Function to add new topics in the forum
     async patchForum(id) {
       this.id_subjects.push(id);
       const { id_subjects } = this.$data;
@@ -90,6 +90,7 @@ export default {
       }
       this.getForum();
     },
+    // Function to delete topic
     async deleteMessage(id) {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre sujet ?")) {
         await axios.delete(
@@ -119,7 +120,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  .titre-sujet {
+  .topicTitle {
     width: 100%;
     background: #698880;
     padding: 20px;
@@ -141,7 +142,7 @@ export default {
     padding: 20px;
     text-align: center;
   }
-  .postSujet {
+  .postTopic {
     display: flex;
     flex-direction: column;
     border-bottom: 2px solid black;
@@ -155,7 +156,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
-  .titre-sujet {
+  .topicTitle {
     width: 70%;
     background: #698880;
     padding: 20px;
@@ -169,7 +170,7 @@ export default {
   .creator-media {
     display: none;
   }
-  .postSujet {
+  .postTopic {
     border-bottom: 3px solid black;
     display: flex;
     justify-content: space-between;
@@ -226,7 +227,7 @@ export default {
 .titre-sujet {
   font-size: 20px;
 }
-.supp-sujet {
+.delete-topic {
     float: right;
     cursor: pointer;
   }

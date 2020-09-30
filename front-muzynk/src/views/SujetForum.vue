@@ -1,5 +1,5 @@
 <template>
-  <main class="main-sujet">
+  <main class="main-topic">
     <ProfilDisplay />
     <Sujet />
     <Navigation />
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-.main-sujet {
+.main-topic {
     height: 84vh;
     background: #426859;
     display: flex;

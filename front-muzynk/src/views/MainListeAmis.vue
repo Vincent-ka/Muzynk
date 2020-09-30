@@ -1,5 +1,5 @@
 <template>
-  <main class="main-listamis">
+  <main class="main-friendList">
       <ListeAmis />
       <Navigation />
   </main>
@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style scoped>
-.main-listamis {
+.main-friendList {
   height: 84vh;
   background: #426859;
   display: flex;

@@ -57,9 +57,9 @@
       </form>
     </article>
 
-    <article class="gerer">
-      <button class="gerer-profil" @click="signout">Déconnexion</button>
-      <p class="gerer-profil" @click="deleteUser">Effacer son profil</p>
+    <article class="manage">
+      <button class="manage-profil" @click="signout">Déconnexion</button>
+      <p class="manage-profil" @click="deleteUser">Effacer son profil</p>
     </article>
   </section>
 </template>
@@ -78,12 +78,14 @@ export default {
     };
   },
   computed: {
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
+    // Function to get the connected user
     async getUser() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
@@ -92,6 +94,7 @@ export default {
       this.lastname = apiRes.data.lastname;
       this.email = apiRes.data.email;
     },
+    // Function to edit the connected user's informations
     async patchUser() {
       const { firstname, lastname, email } = this.$data;
       try {
@@ -109,7 +112,7 @@ export default {
       }
       alert("Les informations ont bien été changées");
     },
-
+    // Function to edit the connected user's password
     async patchPassword() {
       const { password } = this.$data;
       try {
@@ -127,7 +130,7 @@ export default {
       }
       alert("Le mot de passe bien été changées");
     },
-
+    // Function to edit the connected user's avatar
     handleAvatar(e) {
       const fileObject = e.target.files[0];
       this.tmpURL = URL.createObjectURL(fileObject);
@@ -136,7 +139,7 @@ export default {
       fd.append("avatar", fileObject);
       this.$store.dispatch("user/updateAvatar", fd);
     },
-
+    // Function to delete the connected user
     async deleteUser() {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre compte ?")) {
         await axios.delete(
@@ -145,8 +148,9 @@ export default {
         this.signout();
       }
     },
+    //Function to signout
     signout() {
-      auth.signout(this); //  on passe l'instance de vue à la fonction de déconnection
+      auth.signout(this);
       this.$router.push("/");
     }
   },
@@ -173,7 +177,7 @@ export default {
     justify-content: center;
   }
 
-  article.gerer {
+  article.manage {
     display: flex;
     justify-content: space-around;
     border-top: 2px solid black;
@@ -201,7 +205,7 @@ export default {
     align-items: center;
   }
 
-  article.gerer {
+  article.manage {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -252,13 +256,7 @@ export default {
   max-width: 120px;
   margin-bottom: 20px;
 }
-
-.link-deco {
-  color: black;
-  text-decoration: none;
-}
-
-.gerer-profil {
+.manage-profil {
   border: 1px solid;
   border-radius: 0.3rem;
   margin-top: 15px;
@@ -267,7 +265,7 @@ export default {
   background: #efefef;
   cursor: pointer;
 }
-.gerer-profil:hover {
+.manage-profil:hover {
   background: #7d928d;
 }
 form > h3 {

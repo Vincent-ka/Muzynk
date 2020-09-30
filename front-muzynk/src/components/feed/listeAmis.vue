@@ -1,12 +1,12 @@
 <template>
-  <section class="sectionListeAmis">
+  <section class="sectionFriendList">
     <h1>Liste des amis</h1>
     <article>
-      <p class="consigne-ami">Cliquez sur le nom d'un ami afin de voir son fil d'actualité</p>
-      <p class="emptyListeAmis" v-if="this.amisId == '' ">Vous n'avez pas d'amis</p>
-      <ul class="amisListe">
+      <p class="instruction">Cliquez sur le nom d'un ami afin de voir son fil d'actualité</p>
+      <p v-if="this.amisId == '' ">Vous n'avez pas d'amis</p>
+      <ul class="friendList">
         <li v-for="(ami, index) in amisNoms" :key="index">
-          <router-link :to="'/feedAmi/' + ami.id" class="lien-ami">{{ami.prenom}} {{ami.nom}}</router-link>
+          <router-link :to="'/feedAmi/' + ami.id" class="link-friend">{{ami.prenom}} {{ami.nom}}</router-link>
         </li>
       </ul>
     </article>
@@ -23,14 +23,14 @@ export default {
     };
   },
   computed: {
-    // Recuperer le user connecté
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
-    // Fonction pour recuprer les id de la liste d'amis
+    // Function to get the IDs of the friendlist
     async getFriends() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
@@ -39,7 +39,7 @@ export default {
       console.log("les amis id", this.amisId);
       this.getFriendsName();
     },
-    // Fonction pour recuperer les noms de la liste d'amis
+    // Function to get the names from the friendlist
     async getFriendsName() {
       for (let i = 0; i < this.amisId.length; i++) {
         const apiRes = await axios.get(
@@ -65,7 +65,7 @@ export default {
 
 <style scoped>
 @media screen and (min-width: 320px) and (max-width: 979px) {
-  .sectionListeAmis {
+  .sectionFriendList {
     height: 100%;
     width: 100%;
     display: flex;
@@ -73,7 +73,7 @@ export default {
     justify-content: center;
     align-items: center;
   }
-  .sectionListeAmis > article {
+  .sectionFriendList > article {
     height: 90%;
     width: 80%;
     border: 1px solid black;
@@ -84,7 +84,7 @@ export default {
   }
 }
 @media screen and (min-width: 980px) {
-  .sectionListeAmis {
+  .sectionFriendList {
     height: 100%;
     width: 80%;
     display: flex;
@@ -93,7 +93,7 @@ export default {
     align-items: center;
     overflow-y: auto;
   }
-  .sectionListeAmis > article {
+  .sectionFriendList > article {
     height: 90%;
     width: 90%;
     border: 1px solid black;
@@ -103,19 +103,19 @@ export default {
   }
 }
 
-.amisListe {
+.friendList {
   list-style: none;
 }
-.amisListe > li {
+.friendList > li {
   margin-bottom: 15px;
 }
 
-.lien-ami {
+.link-friend {
   text-decoration: none;
   color: black;
   font-size: 20px;
 }
-.consigne-ami {
+.instruction {
   text-align: center;
   margin-bottom: 20px;
   padding-bottom: 10px;

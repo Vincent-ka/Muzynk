@@ -8,8 +8,8 @@
             <th class="table-user-head">Nom de famille</th>
             <th class="table-user-head">Email</th>
             <th class="table-user-head">Role</th>
-            <th class="vide"></th>
-            <th class="vide"></th>
+            <th class="empty"></th>
+            <th class="empty"></th>
           </tr>
         </thead>
         <tbody>
@@ -47,14 +47,14 @@ export default {
     };
   },
   methods: {
-    // Fonction pour afficher tous les utilisateurs
+    // Function to display all of the users
     async getUsers() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users"
       );
       this.users = apiRes.data;
     },
-    // Fonction pour supprimer un utilisateur
+    // Function to delete a user
     async deleteUser(id) {
       if (confirm("Voulez vous bien supprimer cet utilisateur ?")) {
       const apiRes = await axios.delete(
@@ -101,7 +101,7 @@ export default {
   .table-user {
     width: 100%;
   }
-  .vide {
+  .empty {
     display: none;
   }
   .head--user-responsive {

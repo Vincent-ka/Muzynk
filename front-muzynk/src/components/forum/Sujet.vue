@@ -1,9 +1,9 @@
 <template>
-  <section class="sectionSujet">
+  <section class="sectionTopic">
     <article>
-      <div class="sujetbox">
-        <div class="postSujetContent" v-for="(post, index) in id_postsForum" :key="index">
-          <div class="sujetAuteur">
+      <div class="topicBox">
+        <div class="postTopicContent" v-for="(post, index) in id_postsForum" :key="index">
+          <div class="AuthorTopic">
             <router-link :to="'/ajout-amis/' + post.id_author">
               <figure class="author-photo">
                 <img
@@ -15,12 +15,12 @@
             </router-link>
             <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link>
           </div>
-          <div class="contenuMessage">
+          <div class="MessageContent">
             <p>{{post.content}}</p>
-            <p class="date-supp">
+            <p class="date-delete">
               <span class="date-post-forum">{{ moment(post.date_published).format('lll') }}</span>
               <span
-                class="supp-post"
+                class="delete-post"
                 @click="deleteMessage(post._id)"
                 v-if="currentUser._id === post.id_author || currentUser.role === 'admin'"
               >x</span>
@@ -28,9 +28,9 @@
           </div>
         </div>
       </div>
-      <form class="sujetform" @submit.prevent="postContent">
-        <input class="sujet-input" type="text" placeholder="Créer un post" v-model="content" />
-        <button class="sujet-submit">Send</button>
+      <form class="topicForm" @submit.prevent="postContent">
+        <input class="topic-input" type="text" placeholder="Créer un post" v-model="content" />
+        <button class="topic-submit">Send</button>
       </form>
     </article>
   </section>
@@ -49,20 +49,21 @@ export default {
     };
   },
   computed: {
+    // Function to get the current user
     currentUser() {
-      const userInfos = this.$store.getters["user/current"]; // récupère l'user connecté depuis le store/user
-      return userInfos; // retourne les infos, desormais accessible dans le component sous le nom currentUser
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
     }
   },
   methods: {
-    // Fonction pour faire apparaitre le sujet
+    // Function to display the topic
     async getSubject() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/subjects/" + this.$route.params.id
       );
       this.id_postsForum = apiRes.data.id_postsForum;
     },
-    // Fonction pour poster un nouveau sujet
+    // Function to post a new message
     async postContent() {
       const apiRes = await axios.post(
         process.env.VUE_APP_BACKEND_URL + "/postsForum/",
@@ -77,7 +78,7 @@ export default {
       this.content = "";
       this.patchSubject(apiRes.data._id);
     },
-    // Fonction pour modifier le feed et y ajouter le post posté
+    // Function to add the new post in the topic
     async patchSubject(id) {
       this.id_postsForum.push(id);
       const { id_postsForum } = this.$data;
@@ -96,6 +97,7 @@ export default {
       }
       this.getSubject();
     },
+    // Function to delete a post
     async deleteMessage(id) {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre message ?")) {
         await axios.delete(
@@ -117,7 +119,7 @@ export default {
 
 <style scoped>
 @media screen and (min-width: 320px) and (max-width: 979px) {
-  .sectionSujet {
+  .sectionTopic {
     height: 100%;
     width: 100%;
     display: flex;
@@ -134,7 +136,7 @@ export default {
 }
 
 @media screen and (min-width: 980px) {
-  .sectionSujet {
+  .sectionTopic {
     width: 60%;
     height: 100%;
     display: flex;
@@ -150,14 +152,13 @@ export default {
   }
 }
 
-.sectionSujet > article {
+.sectionTopic > article {
   width: 90%;
   height: 90%;
   position: relative;
 }
 
-.sujetbox {
-  background: red;
+.topicBox {
   width: 100%;
   height: 95%;
   background: white;
@@ -165,7 +166,7 @@ export default {
   border: 2px solid black;
 }
 
-.sujetform {
+.topicForm {
   display: flex;
   position: absolute;
   bottom: 0;
@@ -177,23 +178,23 @@ export default {
   border-top: none;
 }
 
-.sujet-submit {
+.topic-submit {
   width: 50px;
   height: 100%;
   align-self: center;
   margin-left: auto;
 }
 
-.sujet-input {
+.topic-input {
   width: 100%;
 }
 
-.postSujetContent {
+.postTopicContent {
   border-bottom: 1px solid;
   display: flex;
 }
 
-.sujetAuteur {
+.AuthorTopic {
   width: 20%;
   background: #698880;
   text-align: center;
@@ -211,12 +212,12 @@ export default {
   text-decoration: underline;
 }
 
-.contenuMessage {
+.MessageContent {
   width: 80%;
   background: #b1c1c0;
   padding: 10px;
 }
-.supp-post {
+.delete-post {
   background: #b1c1c0;
   cursor: pointer;
   padding: 5px;
@@ -224,7 +225,7 @@ export default {
 .date-post-forum {
   font-size: 10px;
 }
-.date-supp {
+.date-delete {
   float: right;
 }
 </style>
