@@ -2,17 +2,17 @@
   <section class="sectionForum">
     <article>
       <div class="forumbox">
-        <div class="postTopic" v-for="(sujet, index) in id_subjects.slice().reverse()" :key="index">
+        <div class="postTopic" v-for="(subject, index) in id_subjects.slice().reverse()" :key="index">
           <h2 class="topicTitle">
-            <router-link :to="'/forum/sujet/' + sujet._id" class="link-sujet">{{sujet.title}}</router-link>
-            <span class="delete-topic" @click="deleteMessage(sujet._id)" v-if="currentUser._id === sujet.id_creator || currentUser.role === 'admin'">x</span>
+            <router-link :to="'/forum/sujet/' + subject._id" class="link-sujet">{{subject.title}}</router-link>
+            <span class="delete-topic" @click="deleteMessage(subject._id)" v-if="currentUser._id === subject.id_creator || currentUser.role === 'admin'">x</span>
           </h2>
           <p class="creator-media"> Auteur : 
-            <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator-media">{{sujet.prenom}}</router-link>
+            <router-link :to="'/ajout-amis/' + subject.id_creator" class="link-creator-media">{{subject.firstname}}</router-link>
           </p>
 
-          <router-link :to="'/ajout-amis/' + sujet.id_creator" class="link-creator">
-            <p class="creator">{{sujet.prenom}}</p>
+          <router-link :to="'/ajout-amis/' + subject.id_creator" class="link-creator">
+            <p class="creator">{{subject.firstname}}</p>
           </router-link>
         </div>
       </div>
@@ -31,7 +31,7 @@ export default {
     return {
       title: "",
       id_subjects: [],
-      prenom: "",
+      firstname: "",
     };
   },
   computed: {
@@ -47,7 +47,7 @@ export default {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
-      this.prenom = apiRes.data.firstname;
+      this.firstname = apiRes.data.firstname;
     },
     // Function to display the forum
     async getForum() {
@@ -65,7 +65,7 @@ export default {
           {
             title: this.title,
             id_creator: this.currentUser._id,
-            prenom: this.prenom,
+            firstname: this.firstname,
             id_postsForum: []
           }
         );

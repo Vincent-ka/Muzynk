@@ -3,10 +3,10 @@
     <h1>Liste des amis</h1>
     <article>
       <p class="instruction">Cliquez sur le nom d'un ami afin de voir son fil d'actualité</p>
-      <p v-if="this.amisId == '' ">Vous n'avez pas d'amis</p>
+      <p v-if="this.friendsId == '' ">Vous n'avez pas d'amis</p>
       <ul class="friendList">
-        <li v-for="(ami, index) in amisNoms" :key="index">
-          <router-link :to="'/feedAmi/' + ami.id" class="link-friend">{{ami.prenom}} {{ami.nom}}</router-link>
+        <li v-for="(friend, index) in friendsNoms" :key="index">
+          <router-link :to="'/feedAmi/' + friend.id" class="link-friend">{{friend.firstname}} {{friend.lastname}}</router-link>
         </li>
       </ul>
     </article>
@@ -18,8 +18,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      amisId: "",
-      amisNoms: [{ prenom: "", nom: "", id: "" }]
+      friendsId: "",
+      friendsNoms: [{ firstname: "", lastname: "", id: "" }]
     };
   },
   computed: {
@@ -35,19 +35,19 @@ export default {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
       );
-      this.amisId = apiRes.data.friendlist;
-      console.log("les amis id", this.amisId);
+      this.friendsId = apiRes.data.friendlist;
+      console.log("les amis id", this.friendsId);
       this.getFriendsName();
     },
     // Function to get the names from the friendlist
     async getFriendsName() {
-      for (let i = 0; i < this.amisId.length; i++) {
+      for (let i = 0; i < this.friendsId.length; i++) {
         const apiRes = await axios.get(
-          process.env.VUE_APP_BACKEND_URL + "/users/" + this.amisId[i]
+          process.env.VUE_APP_BACKEND_URL + "/users/" + this.friendsId[i]
         );
-        this.amisNoms.push({
-          prenom: apiRes.data.firstname,
-          nom: apiRes.data.lastname,
+        this.friendsNoms.push({
+          firstname: apiRes.data.firstname,
+          lastname: apiRes.data.lastname,
           id: apiRes.data._id
         });
       }

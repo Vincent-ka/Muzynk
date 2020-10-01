@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     // Function to get the friend
-    async getAmi() {
+    async getFriend() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/users/" + this.$route.params.id
       );
@@ -62,10 +62,10 @@ export default {
       this.prenom = apiRes.data.firstname;
       this.nom = apiRes.data.lastname;
       this.avatar = apiRes.data.avatar;
-      this.getFeedAmi();
+      this.getFeedFriend();
     },
-    // Functio nto get the friend's feed
-    async getFeedAmi() {
+    // Function to get the friend's feed
+    async getFeedFriend() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/feeds/" + this.fil
       );
@@ -77,13 +77,13 @@ export default {
         await axios.delete(
           process.env.VUE_APP_BACKEND_URL + "/postsFeed/" + id
         );
-        this.getFeedAmi();
+        this.getFeedFriend();
       }
     }
   },
   created() {
     try {
-      this.getAmi();
+      this.getFriend();
     } catch (err) {
       console.error(err);
     }

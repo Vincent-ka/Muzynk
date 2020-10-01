@@ -7,7 +7,7 @@ const postForumSchema = new Schema({
         ref: "User"
     },
     content: String,
-    prenom: String,
+    firstname: String,
     avatar: String,
     date_published: Date,
     date_modified: Date

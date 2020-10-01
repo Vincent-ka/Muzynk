@@ -13,7 +13,7 @@
                 />
               </figure>
             </router-link>
-            <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.prenom}}</router-link>
+            <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.firstname}}</router-link>
           </div>
           <div class="MessageContent">
             <p>{{post.content}}</p>
@@ -43,7 +43,7 @@ export default {
     return {
       content: "",
       id_postsForum: [],
-      prenom: "",
+      firstname: "",
       avatar: "",
       date_published: ""
     };
@@ -70,7 +70,7 @@ export default {
         {
           content: this.content,
           id_author: this.currentUser._id,
-          prenom: this.currentUser.firstname,
+          firstname: this.currentUser.firstname,
           avatar: this.currentUser.avatar,
           date_published: Date.now()
         }
