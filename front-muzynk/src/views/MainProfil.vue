@@ -1,16 +1,16 @@
 <template>
   <main class="main-profil">
-      <Feed />
+      <Profil />
       <Navigation />
   </main>
 </template>
 
 <script>
-import Feed from './../components/profil/Profil';
+import Profil from './../components/profil/Profil';
 import Navigation from './../components/nav/Navigation'
 export default {
     components: {
-        Feed,
+        Profil,
         Navigation
     }
 };

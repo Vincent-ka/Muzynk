@@ -1,23 +1,23 @@
 <template>
-  <main class="main-feedFriend">
-      <FeedAmi />
+  <main class="main-friendList">
+      <FriendList />
       <Navigation />
   </main>
 </template>
 
 <script>
-import FeedAmi from './../components/feed/FeedAmi'
+import FriendList from './../components/feed/FriendList'
 import Navigation from './../components/nav/Navigation'
 export default {
     components: {
-        FeedAmi,
+        FriendList,
         Navigation
-    },
+    }
 };
 </script>
 
 <style scoped>
-.main-feedFriend {
+.main-friendList {
   height: 84vh;
   background: #426859;
   display: flex;

@@ -6,7 +6,7 @@
       <p v-if="this.friendsId == '' ">Vous n'avez pas d'amis</p>
       <ul class="friendList">
         <li v-for="(friend, index) in friendsNoms" :key="index">
-          <router-link :to="'/feedAmi/' + friend.id" class="link-friend">{{friend.firstname}} {{friend.lastname}}</router-link>
+          <router-link :to="'/friend-feed/' + friend.id" class="link-friend">{{friend.firstname}} {{friend.lastname}}</router-link>
         </li>
       </ul>
     </article>

@@ -15,7 +15,7 @@
         <tbody>
           <tr v-for="(user, i) in users" :key="i" class="table-user-row">
             <th class="head-user-responsive">Nom</th>
-            <td><router-link :to="'/feedAmi/' + user._id" class="lien-dashboard-feed">{{user.firstname}}</router-link></td>
+            <td><router-link :to="'/friend-feed/' + user._id" class="lien-dashboard-feed">{{user.firstname}}</router-link></td>
             <th class="head-user-responsive">Nom de famille</th>
             <td>{{user.lastname}}</td>
             <th class="head-user-responsive">Email</th>

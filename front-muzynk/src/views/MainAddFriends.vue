@@ -1,16 +1,16 @@
 <template>
   <main class="main-addFriends">
-      <AjoutAmis />
+      <AddFriends />
       <Navigation />
   </main>
 </template>
 
 <script>
-import AjoutAmis from "./../components/amis/AjoutAmis";
+import AddFriends from "./../components/friends/AddFriends";
 import Navigation from "./../components/nav/Navigation";
 export default {
     components: {
-        AjoutAmis,
+        AddFriends,
         Navigation
     }
 }

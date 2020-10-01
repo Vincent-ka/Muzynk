@@ -1,16 +1,16 @@
 <template>
   <div class="main-chat">
-      <Amis />
+      <Chat />
       <Navigation />
   </div>
 </template>
 
 <script>
-import Amis from "./../components/chat/Chat";
+import Chat from "./../components/chat/Chat";
 import Navigation from "./../components/nav/Navigation"
 export default {
     components: {
-        Amis,
+        Chat,
         Navigation
     }
 };

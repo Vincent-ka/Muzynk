@@ -4,7 +4,7 @@
       <div class="topicBox">
         <div class="postTopicContent" v-for="(post, index) in id_postsForum" :key="index">
           <div class="AuthorTopic">
-            <router-link :to="'/ajout-amis/' + post.id_author">
+            <router-link :to="'/add-friends/' + post.id_author">
               <figure class="author-photo">
                 <img
                   class="postDisplayImg"
@@ -13,7 +13,7 @@
                 />
               </figure>
             </router-link>
-            <router-link class="link-author" :to="'/ajout-amis/' + post.id_author">{{post.firstname}}</router-link>
+            <router-link class="link-author" :to="'/add-friends/' + post.id_author">{{post.firstname}}</router-link>
           </div>
           <div class="MessageContent">
             <p>{{post.content}}</p>

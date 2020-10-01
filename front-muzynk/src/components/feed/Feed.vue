@@ -12,7 +12,7 @@
           <input class="feed-input" type="text" placeholder="poster du contenu" v-model="post"/>
         </div>
         <button type="submit" class="feed-submit">Send</button>
-        <router-link :to="'/listeAmis/'" class="link-friendlist">
+        <router-link :to="'/friend-list/'" class="link-friendlist">
         <p>Feed ami</p>
         </router-link>
       </form>

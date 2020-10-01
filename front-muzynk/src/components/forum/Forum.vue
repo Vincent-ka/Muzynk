@@ -4,14 +4,14 @@
       <div class="forumbox">
         <div class="postTopic" v-for="(subject, index) in id_subjects.slice().reverse()" :key="index">
           <h2 class="topicTitle">
-            <router-link :to="'/forum/sujet/' + subject._id" class="link-sujet">{{subject.title}}</router-link>
+            <router-link :to="'/forum/subject/' + subject._id" class="link-sujet">{{subject.title}}</router-link>
             <span class="delete-topic" @click="deleteMessage(subject._id)" v-if="currentUser._id === subject.id_creator || currentUser.role === 'admin'">x</span>
           </h2>
           <p class="creator-media"> Auteur : 
             <router-link :to="'/ajout-amis/' + subject.id_creator" class="link-creator-media">{{subject.firstname}}</router-link>
           </p>
 
-          <router-link :to="'/ajout-amis/' + subject.id_creator" class="link-creator">
+          <router-link :to="'/add-friends/' + subject.id_creator" class="link-creator">
             <p class="creator">{{subject.firstname}}</p>
           </router-link>
         </div>

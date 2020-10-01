@@ -15,7 +15,7 @@ const routes = [
       else next();
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/Signin-login.vue")
+      import(/* webpackChunkName: "about" */ "../views/Signup-signin.vue")
   },
   {
     path: "/forum",
@@ -30,8 +30,8 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/MainForum.vue")
   },
   {
-    path: "/forum/sujet/:id",
-    name: "Sujet",
+    path: "/forum/subject/:id",
+    name: "Subject",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/");
@@ -39,7 +39,7 @@ const routes = [
       else next();
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/SujetForum.vue")
+      import(/* webpackChunkName: "about" */ "../views/ForumSubject.vue")
   },
   {
     path: "/feed",
@@ -54,8 +54,8 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/MainFeed.vue")
   },
   {
-    path: "/listeAmis",
-    name: "ListeAmis",
+    path: "/friend-list",
+    name: "Friendlist",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/");
@@ -63,11 +63,11 @@ const routes = [
       else next();
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/MainListeAmis.vue")
+      import(/* webpackChunkName: "about" */ "../views/MainFriendList.vue")
   },
   {
-    path: "/feedAmi/:id",
-    name: "FeedAmi",
+    path: "/friend-feed/:id",
+    name: "FriendFeed",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/");
@@ -75,11 +75,11 @@ const routes = [
       else next();
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/MainFeedAmi.vue")
+      import(/* webpackChunkName: "about" */ "../views/MainFriendFeed.vue")
   },
   {
-    path: "/ajout-amis/:id",
-    name: "AjoutAmis",
+    path: "/add-friends/:id",
+    name: "AddFriends",
     beforeEnter: (to, from, next) => {
       // on vérifie l'état de connexion:
       if (!auth.getLocalAuthToken()) next("/");
@@ -87,7 +87,7 @@ const routes = [
       else next();
     },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/MainAjoutAmis.vue")
+      import(/* webpackChunkName: "about" */ "../views/MainAddFriends.vue")
   },
   {
     path: "/profil",

@@ -1,19 +1,19 @@
 <template>
   <main class="main-topic">
     <ProfilDisplay />
-    <Sujet />
+    <Subject />
     <Navigation />
   </main>
 </template>
 
 <script>
 import ProfilDisplay from './../components/ProfilDisplay'
-import Sujet from './../components/forum/Sujet'
+import Subject from './../components/forum/Subject'
 import Navigation from './../components/nav/Navigation'
 export default {
     components: {
         ProfilDisplay,
-        Sujet,
+        Subject,
         Navigation
     }
 }
