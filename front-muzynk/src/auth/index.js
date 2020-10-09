@@ -8,7 +8,7 @@ const getLocalAuthToken = () => localStorage.getItem(tokenName);
 
 /**
  *
- * @param {String} token un jeton JWT généré côté server (/auth/index.js)
+ * @param {String} token a jwt token is generated on the server side (/auth/index.js)
  * @return {undefined}
  */
 const setLocalAuthToken = (token) => localStorage.setItem(tokenName, token);

@@ -12,9 +12,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    // product,
     user
   },
-  //Pour ne pas perdre les infos du current users lorsqu'on recharge la page manuellement
+  // In order not to lose the current user's infos when we reload the page
   plugins: [createPersistedState()]
 });

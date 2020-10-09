@@ -60,6 +60,7 @@ router.patch("/:id", async (req, res, next) => {
   }
 })
 
+// PATCH PASSWORD
 router.patch("/password/:id", auth.authenticate, async (req, res, next) => {
   var user = {
     ...req.body
@@ -79,6 +80,7 @@ router.patch("/password/:id", auth.authenticate, async (req, res, next) => {
 
 });
 
+// PATCH AVATAR
 router.patch(
   "/:id/avatar",
   uploader.single("avatar"),

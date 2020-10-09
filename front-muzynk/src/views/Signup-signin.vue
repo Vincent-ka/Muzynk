@@ -1,26 +1,50 @@
 <template>
   <main class="main-log">
     <h1 class="mainTitle">Bienvenue sur Muzynk</h1>
-    <p
-      class="presentation-media"
-    >Vous êtes passionné de musique et souhaitez échanger avec des personnes ayant le même intérêt ? Vous ête au bon endroit</p>
+    <p class="presentation-media">
+      Vous êtes passionné de musique et souhaitez échanger avec des personnes
+      ayant le même intérêt ? Vous ête au bon endroit.
+    </p>
     <section class="sectionLog">
       <article class="formPres">
         <form class="form-log" v-on:submit.prevent="signin">
           <h3>Connectez-vous</h3>
 
           <label for="input-email-log" class="is-clickable">Email</label>
-          <input id="input-email-log" type="email" class="input" name="email" autocomplete="email" v-model="connexion.email" required/>
+          <input
+            id="input-email-log"
+            type="email"
+            class="input"
+            name="email"
+            autocomplete="email"
+            v-model="connexion.email"
+            required
+          />
 
-          <label for="input-password-log" class="is-clickable">Mot de passe</label>
-          <input id="input-password-log" type="password" class="input" name="password" autocomplete="current-password" required v-model="connexion.password"/>
+          <label for="input-password-log" class="is-clickable"
+            >Mot de passe</label
+          >
+          <input
+            id="input-password-log"
+            type="password"
+            class="input"
+            name="password"
+            autocomplete="current-password"
+            required
+            v-model="connexion.password"
+          />
           <button class="btn">ok</button>
         </form>
       </article>
 
       <article class="presentation">
-        <p>Muzynk est un réseau social destiné aux passionnés de musique</p>
-        <p>Essayez son forum afin de pouvoir rencontrer des personnes partageant vos goût musicaux.</p>
+        <p>Muzynk est un réseau social destiné aux passionnés de musique.</p>
+        <p>
+          Essayez son forum afin de pouvoir échanger et rencontrer des personnes
+          partageant vos goût musicaux. Son fil d'actualité vous permettra de
+          vous exprimer et n'hésitez pas à discuter avec les autres utlisateurs
+          via le chat.
+        </p>
       </article>
 
       <article class="formPres">
@@ -38,13 +62,33 @@
             required
           />
 
-          <label for="input-lastname" class="is-clickable">Nom de famille</label>
-          <input id="input-lastname" type="text" class="input" name="lastname" autocomplete="family-name" v-model="user.lastname" required/>
+          <label for="input-lastname" class="is-clickable"
+            >Nom de famille</label
+          >
+          <input
+            id="input-lastname"
+            type="text"
+            class="input"
+            name="lastname"
+            autocomplete="family-name"
+            v-model="user.lastname"
+            required
+          />
 
           <label for="input-email-sign" class="is-clickable">Email</label>
-          <input id="input-email-sign" type="email" class="input" name="email" autocomplete="email" v-model="user.email" required/>
+          <input
+            id="input-email-sign"
+            type="email"
+            class="input"
+            name="email"
+            autocomplete="email"
+            v-model="user.email"
+            required
+          />
 
-          <label for="input-password-sign" class="is-clickable">Mot de passe</label>
+          <label for="input-password-sign" class="is-clickable"
+            >Mot de passe</label
+          >
           <input
             id="input-password-sign"
             type="password"
@@ -70,7 +114,7 @@ export default {
         firstname: "",
         lastname: "",
         email: "",
-        password: "",
+        password: ""
       },
       connexion: {
         email: "",
@@ -138,6 +182,8 @@ export default {
     text-align: center;
     margin-top: 15px;
     margin-bottom: 15px;
+    font-weight: 500;
+    line-height: 30px;
   }
 
   .mainTitle {
@@ -152,25 +198,24 @@ export default {
   }
 
   .sectionLog > article.presentation {
-    height: 50%;
     align-self: center;
     width: 20%;
+    padding: 20px;
+    border: 2px solid #4f7f88;
+    border-radius: 10px;
   }
 
   .sectionLog > article.formPres {
     width: 40%;
-    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
   .presentation {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     text-align: justify;
+    font-weight: 500;
+    line-height: 30px;
   }
 
   .presentation-media {

@@ -77,6 +77,7 @@ export default {
   width: 80%;
   height: 80%;
   border-radius: 50%;
+  border: 1px solid #5CB6F5;
 }
 
 .sectionName >article>.display-lien-profil {

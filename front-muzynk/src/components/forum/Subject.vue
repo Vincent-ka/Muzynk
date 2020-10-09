@@ -190,7 +190,6 @@ export default {
 }
 
 .postTopicContent {
-  border-bottom: 1px solid;
   display: flex;
 }
 
@@ -216,6 +215,7 @@ export default {
   width: 80%;
   background: #b1c1c0;
   padding: 10px;
+  border-bottom: 1px solid black;
 }
 .delete-post {
   background: #b1c1c0;

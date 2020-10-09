@@ -3,18 +3,22 @@
     <article>
       <!-- <h2 class="chat-title">Chat</h2> -->
       <div class="chatbox">
+        <p class="emptyChat" v-if="this.messages.length === 0">
+          Bienvenue sur la chat du site. Cette chatroom est générale, tous les utilisateurs connectés peuvent voir les messages postés. Un chat privé sera mis en place dans quelques mois.
+        </p>
         <p v-for="(msg, index) in messages" :key="index">
-          <span>{{ msg.user }}-</span>
-          {{ msg.message }}
+          <span class="sender">{{ msg.user }}</span>
+          : {{ msg.message }}
         </p>
       </div>
       <form class="chatform" @submit.prevent="sendMessage">
         <div>
-          <!-- <label for="user">User:</label> -->
-          <!-- <input type="text" v-model="user" /> -->
-        </div>
-        <div>
-          <input class="chat-input" type="text" v-model="message" />
+          <input
+            class="chat-input"
+            type="text"
+            placeholder="Ecrire un message"
+            v-model="message"
+          />
         </div>
         <button type="submit" class="chat-submit">Send</button>
       </form>
@@ -35,6 +39,13 @@ export default {
       socket: io("localhost:3001")
     };
   },
+  computed: {
+    // Function to get the current user
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
+    }
+  },
   methods: {
     sendMessage(e) {
       e.preventDefault();
@@ -45,16 +56,25 @@ export default {
       });
       this.message = "";
     },
+    // Function to get the user's name
+    async getUser() {
+      const apiRes = await axios.get(
+        process.env.VUE_APP_BACKEND_URL + "/users/" + this.currentUser._id
+      );
+      this.user = apiRes.data.firstname;
+    },
+    // Function to get the chat
     async getChat() {
       const apiRes = await axios.get(
         process.env.VUE_APP_BACKEND_URL + "/chats/5f4cb5308e9be0103428fb2b"
       );
-      this.id_postsFeed = apiRes.data.message;
+      this.messages = apiRes.data.message;
       console.log(apiRes.data.message);
     }
   },
   created() {
     try {
+      this.getUser();
       this.getChat();
     } catch (err) {
       console.error(err);
@@ -103,6 +123,7 @@ export default {
   background: white;
   overflow-y: auto;
   border: 2px solid black;
+  padding: 10px;
 }
 
 .chatbox p {
@@ -135,5 +156,16 @@ export default {
 
 .chat-input {
   margin-left: 10px;
+}
+
+.sender {
+  text-decoration: underline;
+}
+
+.emptyChat {
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 20px;
 }
 </style>
