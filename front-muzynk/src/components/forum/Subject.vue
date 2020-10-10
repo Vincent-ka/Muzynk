@@ -2,7 +2,11 @@
   <section class="sectionTopic">
     <article>
       <div class="topicBox">
-        <div class="postTopicContent" v-for="(post, index) in id_postsForum" :key="index">
+        <div
+          class="postTopicContent"
+          v-for="(post, index) in id_postsForum"
+          :key="index"
+        >
           <div class="AuthorTopic">
             <router-link :to="'/add-friends/' + post.id_author">
               <figure class="author-photo">
@@ -13,23 +17,39 @@
                 />
               </figure>
             </router-link>
-            <router-link class="link-author" :to="'/add-friends/' + post.id_author">{{post.firstname}}</router-link>
+            <router-link
+              class="link-author"
+              :to="'/add-friends/' + post.id_author"
+              >{{ post.firstname }}</router-link
+            >
           </div>
           <div class="MessageContent">
-            <p>{{post.content}}</p>
+            <p>{{ post.content }}</p>
             <p class="date-delete">
-              <span class="date-post-forum">{{ moment(post.date_published).format('lll') }}</span>
+              <span class="date-post-forum">{{
+                moment(post.date_published).format("lll")
+              }}</span>
               <span
                 class="delete-post"
                 @click="deleteMessage(post._id)"
-                v-if="currentUser._id === post.id_author || currentUser.role === 'admin'"
-              >x</span>
+                v-if="
+                  currentUser._id === post.id_author ||
+                    currentUser.role === 'admin' ||
+                    currentUser.role === 'moderator'
+                "
+                >x</span
+              >
             </p>
           </div>
         </div>
       </div>
       <form class="topicForm" @submit.prevent="postContent">
-        <input class="topic-input" type="text" placeholder="Créer un post" v-model="content" />
+        <input
+          class="topic-input"
+          type="text"
+          placeholder="Créer un post"
+          v-model="content"
+        />
         <button class="topic-submit">Send</button>
       </form>
     </article>

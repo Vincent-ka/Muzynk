@@ -2,22 +2,52 @@
   <section class="sectionForum">
     <article>
       <div class="forumbox">
-        <div class="postTopic" v-for="(subject, index) in id_subjects.slice().reverse()" :key="index">
+        <div
+          class="postTopic"
+          v-for="(subject, index) in id_subjects.slice().reverse()"
+          :key="index"
+        >
           <h2 class="topicTitle">
-            <router-link :to="'/forum/subject/' + subject._id" class="link-sujet">{{subject.title}}</router-link>
-            <span class="delete-topic" @click="deleteMessage(subject._id)" v-if="currentUser._id === subject.id_creator || currentUser.role === 'admin'">x</span>
+            <router-link
+              :to="'/forum/subject/' + subject._id"
+              class="link-sujet"
+              >{{ subject.title }}</router-link
+            >
+            <span
+              class="delete-topic"
+              @click="deleteMessage(subject._id)"
+              v-if="
+                currentUser._id === subject.id_creator ||
+                  currentUser.role === 'admin' ||
+                  currentUser.role === 'moderator'
+              "
+              >x</span
+            >
           </h2>
-          <p class="creator-media"> Auteur : 
-            <router-link :to="'/ajout-amis/' + subject.id_creator" class="link-creator-media">{{subject.firstname}}</router-link>
+          <p class="creator-media">
+            Auteur :
+            <router-link
+              :to="'/ajout-amis/' + subject.id_creator"
+              class="link-creator-media"
+              >{{ subject.firstname }}</router-link
+            >
           </p>
 
-          <router-link :to="'/add-friends/' + subject.id_creator" class="link-creator">
-            <p class="creator">{{subject.firstname}}</p>
+          <router-link
+            :to="'/add-friends/' + subject.id_creator"
+            class="link-creator"
+          >
+            <p class="creator">{{ subject.firstname }}</p>
           </router-link>
         </div>
       </div>
       <form class="forumform" @submit.prevent="postSubject">
-        <input class="forum-input" type="text" placeholder="Créer un nouveau sujet" v-model="title" />
+        <input
+          class="forum-input"
+          type="text"
+          placeholder="Créer un nouveau sujet"
+          v-model="title"
+        />
         <button class="forum-submit">Send</button>
       </form>
     </article>
@@ -31,7 +61,7 @@ export default {
     return {
       title: "",
       id_subjects: [],
-      firstname: "",
+      firstname: ""
     };
   },
   computed: {
@@ -55,7 +85,7 @@ export default {
         process.env.VUE_APP_BACKEND_URL + "/forums/5f3a7be4a9a37d200c17dddd"
       );
       this.id_subjects = apiRes.data.id_subjects;
-      console.log("lol", apiRes.data)
+      console.log("lol", apiRes.data);
     },
     // Function to post a new topic
     async postSubject() {
@@ -93,16 +123,14 @@ export default {
     // Function to delete topic
     async deleteMessage(id) {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre sujet ?")) {
-        await axios.delete(
-          process.env.VUE_APP_BACKEND_URL + "/subjects/" + id
-        );
-        this.getForum()
+        await axios.delete(process.env.VUE_APP_BACKEND_URL + "/subjects/" + id);
+        this.getForum();
       }
-    },
+    }
   },
   created() {
     try {
-      this.getUser()
+      this.getUser();
       this.getForum();
     } catch (err) {
       console.error(err);
@@ -214,7 +242,6 @@ export default {
   padding: 5px;
   font-size: 10px;
   align-self: flex-end;
-
 }
 .link-creator-media {
   color: black;
@@ -228,7 +255,7 @@ export default {
   font-size: 20px;
 }
 .delete-topic {
-    float: right;
-    cursor: pointer;
-  }
+  float: right;
+  cursor: pointer;
+}
 </style>

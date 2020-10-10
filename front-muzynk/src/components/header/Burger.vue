@@ -21,9 +21,12 @@ export default {
   hr {
     width: 35px;
     height: 5px;
-    background: white;
-    margin-top: 6px;
+    background: black;
+    border: black;
     border-radius: 10px;
+  }
+  hr:nth-child(2), hr:nth-child(3) {
+    margin-top: 6px;
   }
 
   #burger {

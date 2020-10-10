@@ -74,8 +74,8 @@ export default {
 }
 
 .displayImg {
-  width: 80%;
-  height: 80%;
+  width: 90%;
+  height: 90%;
   border-radius: 50%;
   border: 1px solid #5CB6F5;
 }

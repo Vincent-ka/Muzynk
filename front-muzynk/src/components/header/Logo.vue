@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width:320px) {
+@media screen and (max-width:360px) {
   .header>figure>img {
     max-width: 80px;
     margin-left: 20px;

@@ -23,19 +23,29 @@ export default {};
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 979px) {
+@media (min-width: 320px) and (max-width: 480px) {
   .footer > ul {
+    display: flex;
+    list-style: none;
     margin: auto;
+  }
+  .footer > ul > li {
+    margin-right: 20px;
   }
 }
 
-.footer > ul {
-  display: flex;
-  list-style: none;
-  margin-left: 20px;
-}
+@media screen and (min-width: 481px) {
+  .footer > ul {
+    margin-top: 2px;
+  }
+  .footer > ul {
+    display: flex;
+    list-style: none;
+    margin-left: 20px;
+  }
 
-.footer > ul > li {
-  margin-right: 20px;
+  .footer > ul > li {
+    margin-right: 20px;
+  }
 }
 </style>

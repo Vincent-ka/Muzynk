@@ -35,14 +35,6 @@
     <article>
       <form action="#" class="form-profil" @submit.prevent="patchPassword">
         <h3>Mettre a jour votre mot de passe</h3>
-        <!-- <label for="input-oldpassword" class="is-clickable">Ancien mot de passe</label>
-        <input
-          id="input-oldpassword"
-          type="password"
-          class="input"
-          name="oldpassword"
-          autocomplete="on"
-        />-->
 
         <label for="input-newpassword" class="is-clickable">Nouveau mot de passe</label>
         <input
@@ -61,6 +53,8 @@
       <button class="manage-profil" @click="signout">Déconnexion</button>
       <p class="manage-profil" @click="deleteUser">Effacer son profil</p>
     </article>
+
+      <p class="mentionLegal">Mentions légales</p>
   </section>
 </template>
 
@@ -181,11 +175,18 @@ export default {
     display: flex;
     justify-content: space-around;
     border-top: 2px solid black;
+    border-bottom: 2px solid black;
   }
 
   .form-profil:first-of-type {
     margin-top: 20px;
     margin-bottom: 40px;
+  }
+
+  .mentionLegal {
+    display: block;
+    padding: 10px;
+    text-align: center;
   }
 }
 
@@ -211,6 +212,10 @@ export default {
     justify-content: center;
     align-items: center;
     width: 20%;
+  }
+
+  .mentionLegal {
+    display: none;
   }
 }
 

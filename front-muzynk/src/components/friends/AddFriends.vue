@@ -63,7 +63,7 @@ export default {
           }
         );
         console.log(apiRes);
-        this.$router.push("/feedAmi/" + this.idFriend)
+        this.$router.push("/friend-feed/" + this.idFriend)
       } catch (apiErr) {
         console.error(apiErr);
       }
