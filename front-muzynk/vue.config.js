@@ -1,7 +1,7 @@
 module.exports = {
     devServer: {
-      proxy: "https://muzynkback.herokuapp.com/",
+      proxy: "http://localhost:8000",
       host: "localhost",
-      publicPath: "https://muzynkback.herokuapp.com/" // utile pour supprimer l'erreur sockjs-node (Not Found) dans la console du navigateur
+      publicPath: "http://localhost:8080" // utile pour supprimer l'erreur sockjs-node (Not Found) dans la console du navigateur
     },
   };
