@@ -1,24 +1,24 @@
 require("dotenv").config();
 require("./config/mongo");
 
-const createError = require('http-errors');
-const express = require('express');
+const express = require("express");
 const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo")(session);
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const morgan = require("morgan");
-const logger = require('morgan');
-
-const cors = require('cors')
-
-const indexRouter = require('./routes/index');
-// const usersRouter = require('./routes/users');
-
+const cors = require("cors");
+const morgan = require("morgan"); // morgan est un logger
 const app = express();
 
-app.use(cors())
+// POST SETUP
+app.use(express.json());
+
+// CORS SETUP
+// app.use(cors("*"));
+app.use(cors(["http://localhost:3000", "http://localhost:8080"])); 
+// obligatoire pour accepter les appels ajax entrant
+
+// API CALL LOGGIN
+app.use(morgan("dev"));
 
 // SESSION SETUP
 app.use(
@@ -30,13 +30,13 @@ app.use(
       ttl: 24 * 60 * 60, // 1 day
     }),
     saveUninitialized: true,
-    resave: false,
+    resave: true,
   })
 );
 
-const server = app.listen(3001);
-
 //Socket.io
+
+const server = app.listen(3001);
 
 const io = require('socket.io')(server);
 
@@ -47,18 +47,9 @@ io.on('connection', function(socket) {
     });
 }); 
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
-app.use(morgan("dev"));
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.get("/", (req, res) => res.send("hello :) my api is working"));
 app.use("/users", require("./routes/users"));
 app.use("/chats", require("./routes/chats"));
 app.use("/forums", require("./routes/forums"));
@@ -69,20 +60,5 @@ app.use("/postsFeed", require("./routes/postsFeed"));
 app.use("/tags", require("./routes/tags"));
 app.use("/auth", require("./routes/auth"));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
 module.exports = app;

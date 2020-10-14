@@ -115,6 +115,12 @@ const routes = [{
       import( /* webpackChunkName: "about" */ "../views/DashEdit.vue")
   },
   {
+    path: "/legalMentions",
+    name: "LegalMentions",
+    component: () =>
+      import( /* webpackChunkName: "about" */ "../views/LegalMentions.vue")
+  },
+  {
     path: "*",
     name: "Not Found",
     component: () =>

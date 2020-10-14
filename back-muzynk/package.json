@@ -1,5 +1,5 @@
 {
-  "name": "back-projet-react",
+  "name": "back-projet-vue",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "express-session": "^1.17.1",
     "hbs": "^4.1.1",
@@ -24,7 +25,5 @@
     "multer-storage-cloudinary": "^4.0.0",
     "socket.io": "^2.3.0"
   },
-  "devDependencies": {
-    "dotenv": "^8.2.0"
-  }
+  "devDependencies": {}
 }

@@ -199,14 +199,14 @@ export default {
 
   .sectionLog > article.presentation {
     align-self: center;
-    width: 20%;
+    width: 30%;
     padding: 20px;
     border: 2px solid #4f7f88;
     border-radius: 10px;
   }
 
   .sectionLog > article.formPres {
-    width: 40%;
+    width: 35%;
     display: flex;
     justify-content: center;
     align-items: center;

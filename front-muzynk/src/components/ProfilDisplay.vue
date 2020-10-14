@@ -37,6 +37,12 @@ export default {
       this.lastname = apiRes.data.lastname;
     },
   },
+  // Update the avatar if it was changed 
+  beforeMount() {
+    this.$ebus.$on("refresh-avatar", () => {
+      this.getUser();
+    });
+  },
   created() {
     try {
       this.getUser();
@@ -71,6 +77,7 @@ export default {
     margin-top: 35%;
     margin-left: 10px;
     text-align: center;
+    max-width: 200px;
 }
 
 .displayImg {

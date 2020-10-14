@@ -54,7 +54,7 @@
       <p class="manage-profil" @click="deleteUser">Effacer son profil</p>
     </article>
 
-      <p class="mentionLegal">Mentions légales</p>
+      <router-link class="link-legalMentions" to="/legalMentions"><p class="mentionLegal">Mentions légales</p></router-link>
   </section>
 </template>
 
@@ -133,6 +133,10 @@ export default {
       fd.append("avatar", fileObject);
       this.$store.dispatch("user/updateAvatar", fd);
     },
+    // Allow to the avatar to update without refreshing the page
+    refreshAvatar() {
+      this.$ebus.$emit("refresh-avatar")
+    },
     // Function to delete the connected user
     async deleteUser() {
       if (confirm("Etes vous sûr de bien vouloir supprimer votre compte ?")) {
@@ -188,6 +192,11 @@ export default {
     padding: 10px;
     text-align: center;
   }
+
+  .link-legalMentions {
+  color: black;
+  text-decoration: none;
+}
 }
 
 @media screen and (min-width: 980px) {
