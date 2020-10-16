@@ -36,16 +36,16 @@ app.use(
 
 //Socket.io
 
-const server = app.listen(3001);
+// const server = app.listen(3001);
 
-const io = require('socket.io')(server);
+// const io = require('socket.io')(server);
 
-io.on('connection', function(socket) {
-    console.log(socket.id)
-    socket.on('SEND_MESSAGE', function(data) {
-        io.emit('MESSAGE', data)
-    });
-}); 
+// io.on('connection', function(socket) {
+//     console.log(socket.id)
+//     socket.on('SEND_MESSAGE', function(data) {
+//         io.emit('MESSAGE', data)
+//     });
+// }); 
 
 
 

@@ -82,7 +82,7 @@ export default {
     // Function to display the forum
     async getForum() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/forums/5f3a7be4a9a37d200c17dddd"
+        process.env.VUE_APP_BACKEND_URL + "/forums/5f8802c726e554f75b8b260c"
       );
       this.id_subjects = apiRes.data.id_subjects;
       console.log("lol", apiRes.data);
@@ -109,7 +109,7 @@ export default {
       const { id_subjects } = this.$data;
       try {
         const apiRes = await axios.patch(
-          process.env.VUE_APP_BACKEND_URL + "/forums/5f3a7be4a9a37d200c17dddd",
+          process.env.VUE_APP_BACKEND_URL + "/forums/5f8802c726e554f75b8b260c",
           {
             id_subjects
           }
@@ -220,7 +220,7 @@ export default {
   display: flex;
   position: absolute;
   bottom: 0;
-  border-top: 1px solid;
+  border: 2px solid black;
   height: 5%;
   width: 100%;
   background: gray;

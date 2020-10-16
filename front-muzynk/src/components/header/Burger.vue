@@ -1,5 +1,5 @@
 <template>
-  <div id="burger" @click="toggleNav">
+  <div id="burger" @click="toggleNav" v-if="currentUser">
     <hr class="barreBurger" />
     <hr class="barreBurger" />
     <hr class="barreBurger" />
@@ -8,6 +8,13 @@
 
 <script>
 export default {
+  computed: {
+    // Function to get the current user
+    currentUser() {
+      const userInfos = this.$store.getters["user/current"]; // Get the current user from the store
+      return userInfos; // Return the infotmations available under the name "currentUser"
+    }
+  },
   methods: {
     toggleNav() {
       this.$ebus.$emit("toggle-nav")
@@ -45,4 +52,5 @@ export default {
 #burger {
   cursor: pointer;
 }
+
 </style>

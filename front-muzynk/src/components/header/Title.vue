@@ -16,7 +16,8 @@ export default {};
 @media screen and (min-width: 980px) {
   .header>h1 {
     font-size: 50px;
-    margin-left: -150px;
+    position: absolute;
+    left: 45%;
   }
 }
 </style>

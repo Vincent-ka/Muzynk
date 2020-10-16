@@ -4,22 +4,20 @@
       <!-- <h2 class="chat-title">Chat</h2> -->
       <div class="chatbox">
         <p class="emptyChat" v-if="this.messages.length === 0">
-          Bienvenue sur la chat du site. Cette chatroom est générale, tous les utilisateurs connectés peuvent voir les messages postés. Un chat privé sera mis en place dans quelques mois.
+          Le chat est en travaux, bientôt vous aurez des nouvelles. Merci de votre patience.
         </p>
-        <p v-for="(msg, index) in messages" :key="index">
+        <!-- <p v-for="(msg, index) in messages" :key="index">
           <span class="sender">{{ msg.user }}</span>
           : {{ msg.message }}
-        </p>
+        </p> -->
       </div>
       <form class="chatform" @submit.prevent="sendMessage">
-        <div>
           <input
             class="chat-input"
             type="text"
             placeholder="Ecrire un message"
             v-model="message"
           />
-        </div>
         <button type="submit" class="chat-submit">Send</button>
       </form>
     </article>
@@ -28,7 +26,7 @@
 
 <script>
 import axios from "axios";
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 export default {
   data() {
@@ -36,7 +34,7 @@ export default {
       user: "",
       message: "",
       messages: [],
-      socket: io("localhost:3001")
+      // socket: io("localhost:3001")
     };
   },
   computed: {
@@ -47,15 +45,15 @@ export default {
     }
   },
   methods: {
-    sendMessage(e) {
-      e.preventDefault();
+    // sendMessage(e) {
+    //   e.preventDefault();
 
-      this.socket.emit("SEND_MESSAGE", {
-        user: this.user,
-        message: this.message
-      });
-      this.message = "";
-    },
+    //   this.socket.emit("SEND_MESSAGE", {
+    //     user: this.user,
+    //     message: this.message
+    //   });
+    //   this.message = "";
+    // },
     // Function to get the user's name
     async getUser() {
       const apiRes = await axios.get(
@@ -66,10 +64,10 @@ export default {
     // Function to get the chat
     async getChat() {
       const apiRes = await axios.get(
-        process.env.VUE_APP_BACKEND_URL + "/chats/5f4cb5308e9be0103428fb2b"
+        process.env.VUE_APP_BACKEND_URL + "/chats/5f883f2c46c234c3e09bff27"
       );
-      this.messages = apiRes.data.message;
-      console.log(apiRes.data.message);
+      // this.messages = apiRes.data.message;
+      console.log(apiRes);
     }
   },
   created() {
@@ -80,12 +78,12 @@ export default {
       console.error(err);
     }
   },
-  mounted() {
-    this.socket.on("MESSAGE", data => {
-      this.messages = [...this.messages, data];
-      // you can also do this.messages.push(data)
-    });
-  }
+  // mounted() {
+  //   this.socket.on("MESSAGE", data => {
+  //     this.messages = [...this.messages, data];
+  //     // you can also do this.messages.push(data)
+  //   });
+  // }
 };
 </script>
 
@@ -97,6 +95,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 700px) {
+  .chat-submit {
+    font-size: 10px;
   }
 }
 
@@ -119,8 +123,8 @@ export default {
 .chatbox {
   background: red;
   width: 100%;
-  height: 90%;
-  background: white;
+  height: 95%;
+  background: #B1C1C0;
   overflow-y: auto;
   border: 2px solid black;
   padding: 10px;
@@ -135,7 +139,7 @@ export default {
   position: absolute;
   bottom: 0;
   border-top: 1px solid;
-  height: 10%;
+  height: 5%;
   width: 100%;
   background: gray;
   justify-content: center;
@@ -144,7 +148,7 @@ export default {
 }
 
 .chat-submit {
-  width: 50px;
+  width: 10%;
   height: 100%;
   align-self: center;
   margin-left: auto;
@@ -155,7 +159,8 @@ export default {
 }
 
 .chat-input {
-  margin-left: 10px;
+  height: 100%;
+  width: 90%;
 }
 
 .sender {

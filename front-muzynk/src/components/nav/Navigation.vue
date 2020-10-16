@@ -6,26 +6,26 @@
           <li id="closeNavigation" @click="closeNav">X</li>
           <li class="forum lien">
             <img src="./../../assets/accueil.png" alt="picto de l'accueil" />
-            <router-link to="/forum">Forum</router-link>
+            <router-link to="/forum" class="hover-color">Forum</router-link>
           </li>
           <li class="feed lien">
             <img src="./../../assets/feed.png" alt="picto du feed" />
-            <router-link to="/feed">Feed</router-link>
+            <router-link to="/feed" class="hover-color">Feed</router-link>
           </li>
           <li class="chat lien">
             <img src="./../../assets/chat.png" alt="picto du chat" />
-            <router-link to="/chat">Chat</router-link>
+            <router-link to="/chat" class="hover-color">Chat</router-link>
           </li>
           <li class="profil lien dashboard">
             <img src="./../../assets/profil.png" alt="picto du profil" />
-            <router-link to="/profil">Profil</router-link>
+            <router-link to="/profil" class="hover-color">Profil</router-link>
           </li>
           <li
             v-if="currentUser && currentUser.role === 'admin'"
             class="dashboard lien"
           >
             <img src="./../../assets/profil.png" alt="picto du profil" />
-            <router-link to="/dashboard">Dashboard</router-link>
+            <router-link to="/dashboard" class="hover-color">Dashboard</router-link>
           </li>
         </ul>
       </nav>
@@ -173,11 +173,11 @@ export default {
 }
 
 .chat > a {
-  margin-left: 15px;
+  margin-left: 13px;
 }
 
 .profil > a {
-  margin-left: 17px;
+  margin-left: 20px;
 }
 
 .dashboard > a {
@@ -186,5 +186,9 @@ export default {
 
 img {
   width: 30px;
+}
+
+.hover-color:hover {
+  color: white;
 }
 </style>

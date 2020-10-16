@@ -8,9 +8,9 @@
         </p>
       </div>
       <form class="feedform" @submit.prevent="postContent">
-        <div>
+       
           <input class="feed-input" type="text" placeholder="poster du contenu" v-model="post"/>
-        </div>
+        
         <button type="submit" class="feed-submit">Send</button>
         <router-link :to="'/friend-list/'" class="link-friendlist">
         <p>Feed ami</p>
@@ -137,6 +137,12 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
+}
+@media screen and (min-width: 320px) and (max-width: 700px) {
+  .feed-submit {
+    font-size: 10px;
+  }
 }
 @media screen and (min-width: 320px) and (max-width: 350px) {
   .link-friendlist > p {
@@ -152,6 +158,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
 }
 .sectionFeed > article {
   width: 90%;
@@ -178,20 +185,18 @@ export default {
   border: 2px solid black;
   border-top: none;
 }
-.feed-submit {
-  width: 50px;
-  height: 100%;
-  align-self: center;
-  margin-left: auto;
-}
+
 .feedform div {
   align-self: center;
 }
 .feed-input {
-  margin-left: 10px
+  width: 75%;
 }
-.feed-input-file {
-  margin-left: 10px;
+  .feed-submit {
+  width: 10%;
+  height: 100%;
+  align-self: center;
+  margin-left: auto;
 }
 .post {
   border-bottom: 1px solid;
@@ -206,7 +211,13 @@ export default {
   display: flex;
   align-items: center;
   background: #7D928D;
+  width: 15%;
+  text-align: center;
 }
+.link-friendlist > p {
+  margin: auto;
+}
+
 .delete-postFeed {
   float: right;
   cursor: pointer;

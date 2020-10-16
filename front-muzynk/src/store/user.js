@@ -111,7 +111,7 @@ export default {
     async updateAvatar(context, avatarFile) {
       try {
         const updatedUser = await axios.patch(
-          `/users/${context.getters.current._id}/avatar`,
+          process.env.VUE_APP_BACKEND_URL + `/users/${context.getters.current._id}/avatar`,
           avatarFile
         );
         context.commit("setCurrent", updatedUser.data);

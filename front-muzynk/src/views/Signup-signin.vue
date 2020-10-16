@@ -158,7 +158,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @media screen and (min-width: 320px) and (max-width: 979px) {
   .main-log {
     overflow-y: auto;
